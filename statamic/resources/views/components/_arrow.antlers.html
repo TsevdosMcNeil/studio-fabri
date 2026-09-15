@@ -1,0 +1,46 @@
+{{#
+    @name Arrow
+    @desc Arrow icon with configurable direction.
+    @param select   Direction of the arrow.
+    @set page.article.arrow
+    
+#}}
+
+<!-- /components/_arrow.antlers.html -->
+
+{{# Arrow up by default #}}
+{{ svg_class =  '' }}
+{{ if direction == 'left' }}
+    {{ svg_class .=  ' -rotate-90' }}
+{{ elseif direction == 'right' }}
+    {{ svg_class .=  ' rotate-90' }}
+{{ elseif direction == 'down' }}
+    {{ svg_class .=  ' rotate-180' }}
+{{ else }} 
+    {{ svg_class .=  '' }}
+{{ /if }}
+
+{{ fill_class =  'fill-black' }}
+{{ if arrow_color }}
+    {{ fill_class =  'fill-'+arrow_color }}
+{{ /if }}
+
+<div class="flex flex-wrap gap-3 pb-1.5 {{ wrapper_class }}">
+    <svg version="1.1"
+        xmlns="http://www.w3.org/2000/svg" 
+        xmlns:xlink="http://www.w3.org/1999/xlink" 
+        x="0px" 
+        y="0px"
+        width="13" 
+        height="13" 
+        viewBox="0 0 10.61 10.61" 
+        style="enable-background:new 0 0 10.61 10.61;" 
+        xml:space="preserve"
+        class="{{ svg_class }}"
+    >
+        <polygon class="{{ fill_class }}" 
+            points="10.61,5.3 5.3,0 0,5.3 0.71,6.01 4.8,1.91 4.8,10.61 5.8,10.61 5.8,1.91 9.9,6.01 "
+        />
+    </svg>
+</div>
+<!-- End: /components/_arrow.antlers.html -->

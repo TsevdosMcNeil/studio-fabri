@@ -1,0 +1,211 @@
+
+# ignore everything in the root except the  files and folders specified below
+/*
+
+# Ignore all files and directories starting with . or ~ or ._ or ending with ~
+.*
+~*
+*~
+._*
+
+.env
+.env.backup
+.phpunit.result.cache
+.antlers.json
+package-lock.json
+composer.lock
+
+# ignore node dependency directories
+node_modules/
+dist/
+dist-product/
+bower_components
+vendor/
+
+/node_modules
+/vendor
+
+
+
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+.Trashes
+
+# ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.sublime*
+*.komodoproject
+*.code-workspace
+*.elc
+*.esproj
+*.tmproj*
+
+Homestead.json
+Homestead.yaml
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+npm-debug.log
+yarn-error.log
+
+# ignore compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ignore files that a local computer might use for its own convenience
+.DS_Store
+*.swp
+*.pyc
+
+
+# local build tools
+.vagrant
+.idea
+*.sassc
+*.scssc
+*.codekit
+*.sh
+*.lock 
+phpcs.xml
+*.sass-cache
+
+# Numerous always-ignore extensions
+*.bak
+*.cvs
+*.db
+*.diff
+*.err
+*.orig
+*.rej
+
+# Ignore potentially dangerous files (dependabot alerts)
+yarn.lock 
+
+# Ignore custom files
+composer.phar
+public/1n7h0.php
+
+# Ignore server files
+tpass
+
+# Ignore Python files
+*.py
+
+
+# -------------------------
+# Statamic Specific
+# -------------------------
+
+# Track statamic
+!statamic/
+#statamic/*
+
+# ignore users directories
+statamic/users
+
+# ignore content 
+statamic/content
+
+# Ignore Storage files
+statamic/storage/*.key
+statamic/storage/forms
+statamic/storage/redirect
+
+# Ignore public files
+statamic/public/*
+# Track build files
+!statamic/public/build
+
+# Ignore Livewire files
+statamic/public/vendor/livewire/
+statamic/resources/views/vendor/livewire/
+## From the latest Statamic (5.25) and Livewire (3.8) udpates,the config file is not ignored, but keep in mind that it will be overwritten by the command
+## 'php artisan livewire:publish'
+# config/livewire.php 
+
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track these files, if they exist
+!.gitignore
+!.gitattributes
+!.github
+!.editorconfig
+!.phpcs.xml.dist
+!.babelrc.js
+!.browserslist
+!README.md
+!CHANGELOG.md
+# -- sometimes these files won't be ignored becuse 
+# -- they are needed for DO app
+!package-lock.json
+!composer.lock
+
+# -------------------------
+# Documentation
+# ------------------------
+!/docs
+
+
+
+# track robots.txt
+!statamic/public/robots.txt
+
+
+# Migration file
+!*.sql.gz
+
+
+# track favicon files, if they exist
+!android-chrome-*.png
+!apple-touch-icon*.png
+!browserconfig.xml
+!favicon*.png
+!favicon*.ico
+!manifest.json
+!mstile-*.png
+!safari-pinned-tab.svg
+!site.webmanifest
+
+# -------------------------
+# Nginx
+# -------------------------
+!nginx.statamic.example
+
+# -------------------------
+# Docker
+# -------------------------
+!docker-compose.statamic.example.yml
+!docker-compose.statamic.override.yml
+!docker-compose.statamic.remote.yml
+!Caddyfile.statamic.example
+!/docker
+!env.statamic.example
+
+
+# -------------------------
+# Statamic 
+# -------------------------
+#!statamic/content/assets/*.*
+#!statamic/content/navigation/*.*

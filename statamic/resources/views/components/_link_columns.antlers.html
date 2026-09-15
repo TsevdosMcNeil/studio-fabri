@@ -1,0 +1,242 @@
+{{#
+    @name Link columns block
+    @desc Set of blocks with a hover effect linked to an internal or external URL.
+    @param link_blocks              Blocks with content and media linked to an internal or external URL.
+    @param default_left_content     Content to be displayed on the left side of the link columns block
+    @param default_right_content    Content to be displayed on the right side of the link columns block
+    @set page.article.link_columns
+    
+#}}
+
+<!-- /components/_link_columns.antlers.html -->
+<div id="link_columns"
+    x-data="initBlocks()"
+    class="grid gap-4 md:grid-cols-12"
+>
+    
+    <div class=" max-w-none md:hidden">
+    {{ collapse_int = 0  }}
+    {{ link_blocks }}
+        <h2 id="block_m_{{ collapse_int }}">
+            <span
+                @click="toggleCollapsed({{ collapse_int}}); 
+                    $dispatch('change-bodycolour', {bdclass: mbclass });
+                "
+            >{{ title }}</span>
+        </h2>
+        <div x-show="expanded[{{ collapse_int}}]"
+            x-collapse
+            x-bind:class="{'opened' : expanded[{{ collapse_int}}] }"
+            class="py-0"
+        >
+            <div id="left_m_{{ collapse_int }}" class="pt-4">{{ left_content }}</div>
+            <div id="right_m_{{ collapse_int }}" class="pb-4">{{ right_content }}</div>
+            <div id="media_m_{{ collapse_int }}" class="pb-5">
+                {{ if image }}
+                    {{ if glide_active:glide_enabled }}
+                        {{ partial:statamic-peak-tools::components/picture
+                            :image="image" 
+                            sizes="33vw" 
+                            aspect_ratio="16/9" 
+                            class="w-full"
+                            lazy="false" 
+                        }}
+                    {{ else }}
+                        {{ asset :url="image" }}
+                            <img
+                                class="w-full"
+                                src="{{ url }}"
+                                alt="{{ alt | ensure_right('.') | entities }}"
+                                width="{{ width }}"
+                                height="{{ height }}"
+                                loading="lazy"
+                            />
+                        {{ /asset }}    
+                    {{ /if }}
+                {{ elseif video_url }}
+                    {{  partial:components/video 
+                        :video_url="video_url" 
+                        video_autoplay="true"
+                        video_loop="true"
+                    }}
+                    
+                {{ /if }}
+            </div>
+            <p class="pb-5"><a href="{{ link_field}}">
+                <span >Read More</span><svg version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" 
+                    xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    x="0px" 
+                    y="0px"
+                    width="13" 
+                    height="13" 
+                    viewBox="0 0 10.61 10.61" 
+                    style="enable-background:new 0 0 10.61 10.61;" 
+                    xml:space="preserve"
+                    class="inline-block rotate-90 -mt-[5px] ml-[5px] "
+                >
+                    <polygon style="fill:#FFFFFF;" 
+                        points="10.61,5.3 5.3,0 0,5.3 0.71,6.01 4.8,1.91 4.8,10.61 5.8,10.61 5.8,1.91 9.9,6.01 "
+                    />
+                </svg>
+            </a></p>
+        </div>
+
+        {{ collapse_int = collapse_int + 1  }}
+    {{ /link_blocks }}
+    </div>
+
+    <div id="link_columns_left"
+        class="max-w-none md:col-span-2"
+    >
+        <div id="default_left"
+            x-show="!currentBlock"
+        >{{ default_left_content }}</div>
+        {{ link_int = 1 }}
+        {{ link_blocks }}
+            <div id="left_{{ link_int }}"
+                x-show="currentBlock == '{{ link_int }}'"
+                x-transition:enter.duration.300ms
+            >{{ left_content }}</div>
+            {{ link_int = link_int + 1 }}
+        {{ /link_blocks }}
+    </div>
+
+    <div id="link_columns_right"
+        class="max-w-none  md:col-span-2"
+    >
+        <div id="default_right"
+            x-show="!currentBlock"
+        >{{ default_right_content }}</div>
+        {{ link_int = 1 }}
+        {{ link_blocks }}
+            <div id="right_{{ link_int }}"
+                x-show="currentBlock == '{{ link_int }}'"
+                x-transition:enter.duration.300ms
+            >
+                {{ right_content }}
+            </div>
+            {{ link_int = link_int + 1 }}
+        {{ /link_blocks }}
+    </div>
+
+    <div 
+        class=" max-w-none 
+        hidden md:block 
+        md:col-span-6 
+        md:row-span-2 
+        md:col-start-9
+    "
+    >
+        {{ link_int = 1 }}
+        {{ link_blocks }}
+        <a href="{{ link_field}}">
+           
+            <h2 id="block_{{ link_int }}"
+                class="group link_block_title"
+            >
+                <svg version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" 
+                    xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    x="0px" 
+                    y="0px"
+                    width="70" 
+                    height="70" 
+                    viewBox="0 0 10.61 10.61" 
+                    style="enable-background:new 0 0 10.61 10.61;" 
+                    xml:space="preserve"
+                    class="inline-block rotate-90 -ml-[50px] -mt-[50px] -translate-x-3 group-hover:-translate-x-1 opacity-0 group-hover:opacity-100 transition-all "
+                >
+                    <polygon style="fill:#FFFFFF;" 
+                        points="10.61,5.3 5.3,0 0,5.3 0.71,6.01 4.8,1.91 4.8,10.61 5.8,10.61 5.8,1.91 9.9,6.01 "
+                    />
+                </svg><span
+                    class="cursor-pointer hover:text-white"
+                    :class="currentBlock ? 'text-primary' :'text-black'"
+                    x-on:mouseover="currentBlock = '{{ link_int }}'; $dispatch('change-bodycolour', {bdclass: 'dark' }); "
+                    x-on:mouseout="currentBlock = ''; $dispatch('change-bodycolour', {bdclass: 'bright' }); "
+                >{{ title }}</span>
+            </h2>
+        </a>
+        {{ link_int = link_int + 1 }}
+        {{ /link_blocks}}
+    </div>
+
+    <div id="link_columns_image"
+        class="max-w-none md:col-span-4 md:col-start-1 mt-auto"
+    >
+        {{ link_int = 1 }}
+        {{ link_blocks }}
+            <div id="media_{{ link_int }}"
+                x-show="currentBlock == '{{ link_int }}'"
+                x-transition:enter.duration.300ms
+            >
+            {{ if image }}
+                {{ if glide_active:glide_enabled }}
+                    {{ partial:statamic-peak-tools::components/picture
+                        :image="image" 
+                        sizes="33vw" 
+                        aspect_ratio="16/9" 
+                        class="w-full"
+                        lazy="false" 
+                    }}
+                {{ else }}
+                    {{ asset :url="image" }}
+                        <img
+                            class="w-full"
+                            src="{{ url }}"
+                            alt="{{ alt | ensure_right('.') | entities }}"
+                            width="{{ width }}"
+                            height="{{ height }}"
+                            loading="lazy"
+                        />
+                    {{ /asset }}    
+                {{ /if }}
+            {{ elseif video_url }}
+                {{  partial:components/video 
+                    :video_url="video_url" 
+                    video_autoplay="true"
+                    video_loop="true"
+                }}
+                
+            {{ /if }}
+            </div>
+            {{ link_int = link_int + 1 }}
+        {{ /link_blocks }}
+    </div>
+
+    <div x-intersect="
+        collapseAccordion();
+        $dispatch('change-bodycolour', {bdclass: 'bright' });
+    "></div>
+
+</div>  
+<script>
+
+    function initBlocks() {
+
+        return {      
+            expanded:    [],
+            currentBlock:  '',
+            mbclass: 'dark',
+
+            toggleCollapsed( expanded_int ) {
+                let prev = this.expanded[expanded_int];
+                this.collapseAccordion();
+                this.expanded[expanded_int] = !prev;
+                //console.log(prev);
+                this.mbclass = 'dark';
+                if(prev) { 
+                    this.mbclass = 'bright';
+                }
+            },
+            collapseAccordion() {
+                this.expanded.fill(false);
+            },
+
+        }
+    
+    }
+ 
+  </script>
+<!-- End: /components/_link_columns.antlers.html -->

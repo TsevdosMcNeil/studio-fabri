@@ -1,0 +1,29 @@
+{{#
+	@name Full width header
+	@desc A full-width header with two positions.
+    @set page.page_builder.full_width_header
+#}}
+
+<!-- /page_builder/_full_width_header.antlers.html -->
+
+
+
+{{ section_class =  'fluid-container' }}
+{{ heading_class =  ' mb-2 w-full' }}
+
+{{ if has_top_border }}
+    {{ section_class .=  ' border-black border-t' }}
+{{ /if }}
+
+{{ if position == 'right' }}
+    {{ section_class .=  ' grid gap-2 md:grid-cols-12' }}
+    {{ heading_class .=  ' md:col-span-2 md:col-start-9' }}
+{{ /if }}
+
+<section id="{{ anchor }}" 
+    class="{{section_class}}"
+>
+    {{ partial:typography/h1 class="{heading_class}" content="{header}" }}
+</section>
+
+<!-- End: /page_builder/_full_width_header.antlers.html -->

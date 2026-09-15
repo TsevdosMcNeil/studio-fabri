@@ -1,0 +1,30 @@
+{{#
+    @name Social Media
+    @desc The social media menu.
+#}}
+
+<!-- /navigation/_social_media.antlers.html -->
+
+{{ if social_media:social_media }}
+    <div class="social_media leading-tight group flex">
+        {{ media_items = social_media:social_media | length }}
+        {{ m = 1}}
+        {{ social_media:social_media }}
+            <a
+                class=" text-white
+                    focus:outline-none
+                    {{ media_items > 1
+                        ? 'group-hover:text-secondary hover:!text-white '
+                        : 'hover:text-secondary '
+                    }}
+                "
+                href="{{ prefix }}{{ handle }}"
+                rel="noopener"
+                aria-label="{{ config:app:name }} {{ trans:strings.on }} {{ type | title }}" target="_blank"
+            >{{  type | ucfirst }}</a>{{ if  m < media_items }}/{{ /if }}
+            {{ m = m + 1 }}
+        {{ /social_media:social_media }}
+    </div>
+{{ /if }}
+
+<!-- End: /navigation/_social_media.antlers.html -->

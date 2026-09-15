@@ -1,0 +1,19 @@
+title: 'Caption with Arrow'
+fields:
+  -
+    import: arrow
+  -
+    handle: caption
+    field: common.text_rich
+    config:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - underline
+        - small
+        - removeformat
+        - anchor
+        - color
+      display: Caption

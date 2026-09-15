@@ -1,0 +1,96 @@
+title: 'Taxonomy Block'
+fields:
+  -
+    handle: selected_taxonomy
+    field:
+      mode: select
+      type: taxonomies
+      display: Taxonomy
+      icon: taxonomy
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      max_items: 1
+  -
+    handle: default_left_content
+    field:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+      smart_typography: false
+      save_html: false
+      inline: false
+      toolbar_mode: fixed
+      reading_time: false
+      word_count: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      remove_empty_nodes: false
+      antlers: false
+      link_noopener: false
+      link_noreferrer: false
+      target_blank: false
+      always_show_set_button: false
+      collapse: false
+      previews: true
+      type: bard
+      display: 'Default Left Content'
+      icon: bard
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: default_right_content
+    field:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+      smart_typography: false
+      save_html: false
+      inline: false
+      toolbar_mode: fixed
+      reading_time: false
+      word_count: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      remove_empty_nodes: false
+      antlers: false
+      link_noopener: false
+      link_noreferrer: false
+      target_blank: false
+      always_show_set_button: false
+      collapse: false
+      previews: true
+      type: bard
+      display: 'Default Right Content'
+      icon: bard
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

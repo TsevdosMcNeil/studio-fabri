@@ -1,0 +1,46 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: logos
+            field:
+              collapse: false
+              previews: true
+              fullscreen: true
+              sets:
+                new_set_group:
+                  display: 'New Set Group'
+                  instructions: null
+                  icon: null
+                  sets:
+                    logos:
+                      display: Logos
+                      instructions: null
+                      icon: null
+                      fields:
+                        -
+                          handle: image
+                          field: common.image
+                          config:
+                            width: 66
+                        -
+                          handle: link_field
+                          field:
+                            type: link
+                            display: Link
+                            width: 33
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+              type: replicator
+              display: Logos
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

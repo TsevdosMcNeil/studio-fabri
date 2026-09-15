@@ -1,0 +1,54 @@
+title: 'Full width header'
+fields:
+  -
+    handle: header
+    field:
+      input_type: text
+      antlers: false
+      type: text
+      display: Header
+      icon: text
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      width: 66
+  -
+    handle: anchor
+    field:
+      input_type: text
+      prepend: '#'
+      antlers: false
+      type: text
+      display: Anchor
+      icon: text
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: has_top_border
+    field:
+      type: toggle
+      width: 50
+      instructions_position: above
+      listable: hidden
+      visibility: visible
+      default: true
+      hide_display: false
+  -
+    handle: position
+    field:
+      options:
+        left: null
+        right: null
+      default: left
+      type: button_group
+      display: Position
+      icon: button_group
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

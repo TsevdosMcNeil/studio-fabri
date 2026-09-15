@@ -1,0 +1,112 @@
+/* Footer */
+
+@layer components {
+    footer {
+        @apply bg-transparent;
+    }
+    footer a {
+        @apply text-secondary;
+    }
+    footer a:hover {
+        @apply text-black;
+    }
+    body.dark footer a:hover {
+        @apply text-white;
+    }
+
+    footer#contact li,
+    footer#contact.visible .footer-blurb,
+    footer#contact .footer_logos,
+    footer#contact .navigation-bottom {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    footer#contact.visible {
+        @apply animate-menuin;
+    }
+    footer#contact.invisible {
+        @apply animate-menuout;
+    }
+    footer#contact.visible li,
+    footer#contact.visible .footer-blurb,
+    footer#contact.visible .footer_logos,
+    footer#contact.visible .navigation-bottom {
+        @apply animate-fadeandmovein;
+    }
+    footer#contact.visible li:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+    footer#contact.visible li:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+    footer#contact.visible li:nth-child(4) {
+        animation-delay: 0.9s;
+    }
+    footer#contact.visible li:nth-child(5) {
+        animation-delay: 1.2s;
+    }
+    footer#contact.visible li:nth-child(6) {
+        animation-delay: 1.5s;
+    }
+    footer#contact.visible li:nth-child(7) {
+        animation-delay: 1.8s;
+    }
+    footer#contact.visible li:nth-child(8) {
+        animation-delay: 2.1s;
+    }
+
+    footer#contact.visible .footer-blurb {
+        animation-delay: 1.2s;
+    }
+    footer#contact.visible .footer_logos {
+        animation-delay: 1.4s;
+    }
+    footer#contact.visible .navigation-bottom {
+        animation-delay: 1.5s;
+    }
+
+    .footer-link.littleup .footer-wrapper {
+        @apply animate-movelittleup;
+    }
+    .footer-link.littledown .footer-wrapper {
+        @apply animate-movelittledown;
+    }
+
+    .footer-project.active {
+        @apply fixed;
+        @apply h-auto;
+        @apply pt-0;
+        @apply z-30;
+        @apply animate-moveup;
+    }
+    .footer-project.active header {
+        @apply !block;
+    }
+    .footer-project.active h1,
+    .footer-project.active h2,
+    .footer-project.active p,
+    .footer-project.active svg,
+    .footer-project.active div {
+        @apply animate-chgcolour;
+    }
+    .footer-project.active::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: white;
+        @apply animate-chgopacity;
+    }
+    .footer_logos img {
+      max-height: 10vh;
+      @media (min-width: 768px) {
+        max-height: 10vh;
+      }
+  }
+
+    body.dark footer#contact.border-black {
+        border-color: black;
+    }
+}

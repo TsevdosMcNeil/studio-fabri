@@ -1,0 +1,25 @@
+title: Arrow
+fields:
+  -
+    handle: direction
+    field:
+      options:
+        up: null
+        left: null
+        right: null
+        down: null
+      taggable: false
+      push_tags: false
+      multiple: false
+      clearable: false
+      searchable: true
+      cast_booleans: false
+      default: up
+      type: select
+      display: Direction
+      icon: select
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

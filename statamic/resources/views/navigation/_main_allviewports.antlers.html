@@ -1,0 +1,149 @@
+{{#
+@name Allviewports navigation
+@desc The sites navigation rendered on each page. It's 2 levels deep by default and uses AlpineJS for interactivity.
+#}}
+
+<!-- /navigation/_main_allviewports.antlers.html -->
+<nav
+  x-data="{ mobileNavOpen: false, burgerclicked: false, circle_hover_hide: false }"
+  aria-label="{{ trans:strings.main_navigation }}"
+  x-trap.inert.noscroll="mobileNavOpen"
+  @keyup.escape.stop.prevent="mobileNavOpen = false"
+  x-cloak
+>
+  <button
+    @click="
+      $dispatch('change-logocolor' , { logoblack: mobileNavOpen } );
+      $dispatch('opened-nav' , { isclosed: mobileNavOpen } );"
+    @click.prevent.stop="
+      mobileNavOpen = !mobileNavOpen;
+      burgerclicked = true;
+      mobileNavOpen ? setTimeout( () => circle_hover_hide = true, 1000) : circle_hover_hide = false
+    "
+    class="absolute
+      right-0 top-0 z-20
+      mr-4 md:mr-16
+      text-2xl font-bold text-black
+      mb-safe
+      bg-transparent
+      outline-none
+      leading-none"
+    :class="
+      mobileNavOpen
+        ? 'text-white'
+        : 'text-black'"
+    :aria-label="
+      mobileNavOpen
+        ? '{{ trans:strings.nav_close }}'
+        : '{{ trans:strings.nav_open }}'"
+    :aria-expanded="mobileNavOpen"
+  >
+      <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 30 30"
+          xml:space="preserve"
+          class="-m-2 -mt-[7px] ease-in duration-300 w-[30px] group"
+          :class="mobileNavOpen
+                  ? 'stroke-white fill-white rotate-45'
+                  : 'stroke-black fill-black'
+          ">
+          <g>
+              <polygon points="16,7.9 14,7.9 14,14 7.9,14 7.9,16 14,16 14,22.1 16,22.1 16,16 22.1,16 22.1,14 16,14"
+                  stroke-width="0" />
+              <path d="M15,0C6.73,0,0,6.73,0,15s6.73,15,15,15c8.27,0,15-6.73,15-15S23.27,0,15,0z M15,28C7.83,28,2,22.17,2,15S7.83,2,15,2
+                  s13,5.83,13,13S22.17,28,15,28z" stroke-width="0" class="transition-all" :class="mobileNavOpen
+                                  ? circle_hover_hide
+                                          ? 'group-hover:opacity-0'
+                                          : ''
+                                  : 'opacity-0 group-hover:opacity-100'
+                          "></path>
+          </g>
+      </svg>
+  </button>
+
+	<div
+      class="fixed
+        inset-0
+        fluid-container
+        gap-2
+        grid-cols-2 lg:grid-cols-12
+        justify-end
+        bg-salmon
+        mainmenu
+        hidden
+      "
+      x-bind:class="
+        mobileNavOpen
+          ? '!grid visible'
+          : burgerclicked
+            ? '!grid invisible'
+            : ''"
+    >
+	<div
+      class="hidden md:flex
+        flex-col justify-end
+		pt-0 pb-2
+		mt-[20px]
+		col-span-2
+		lg:col-span-8"
+    >
+	  {{ partial:navigation/logos }}
+	</div>
+	<div class="flex flex-col
+		pt-0 pb-2
+		mt-[20px]
+		col-span-2
+		lg:col-span-4
+">
+			{{ partial:navigation/main_menu
+			link_color="text-white group-hover:text-secondary hover:!text-white"
+			}}
+
+			<div class="mainmenu-blurb
+				w-full
+				pt-[75px] xl:pl-[7px]
+				text-white
+				flex
+				mt-auto md:mt-0
+				mb-[25px] md:mb-auto
+		">
+				<div class="left-column
+						w-1/2
+						pb-4 md:pb-0
+						pr-4 md:pr-14
+				">
+					{{ footer_message:left_column }}
+				</div>
+				<div class="right-column
+						w-1/2
+						pr-4 md:pr-14
+				">
+					{{ footer_message:right_column }}
+				</div>
+			</div>
+
+			<div class="flex md:hidden flex-col justify-end">
+				{{ partial:navigation/logos }}
+			</div>
+
+			<div class="w-full flex py-2  text-white navigation-bottom">
+				<div class="contact_details flex flex-col justify-end h-full w-1/2">
+					{{ contact_details:contact_details }}
+				</div>
+
+				<div class="flex flex-col justify-end h-full w-1/2">
+					{{ partial:navigation/social_media }}
+					<div class="copyright">
+						{{ copyright:message }}
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</nav>
+<!-- End: /navigation/_main_allviewports.antlers.html -->

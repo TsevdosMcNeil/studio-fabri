@@ -1,0 +1,47 @@
+/* Expanded Line */
+
+::before, ::after {
+    --expanded-line-extra: 1rem;
+}
+@media (min-width: 640px) { 
+    ::before, ::after {
+        --expanded-line-extra: 4rem;
+    }
+}
+
+@layer utilities {
+    
+    /* 
+    * Component: Expanded line 
+    */
+    .expanded-line::after {
+        content: '';
+        position: absolute;
+        top: -1px;
+        width: calc(env(safe-area-inset-right, 0rem) + var(--expanded-line-extra));
+        border-top: 1px solid;
+        border-color: inherit
+    }
+    .expanded-line.right::after {
+        left: 100%;
+    }
+    .expanded-line.left::after {
+        left: calc( -1 * env(safe-area-inset-right, 0rem) - var(--expanded-line-extra));
+    }
+    .expanded-line.both::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        width: calc(env(safe-area-inset-right, 0rem) + var(--expanded-line-extra));
+        border-top: 1px solid;
+        border-color: inherit
+    }
+    .expanded-line.both::before {
+        left: calc( -1 * env(safe-area-inset-right, 0rem) - var(--expanded-line-extra));
+    }
+    .expanded-line.both::after {
+        left: 100%;
+    }
+
+
+}

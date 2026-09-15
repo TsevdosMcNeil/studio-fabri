@@ -1,0 +1,47 @@
+{{#
+	@name Left article +  Right two columns
+	@desc The Two columns text and article page builder block.
+    @set page.page_builder.left_article_right_two_columns
+#}}
+
+<!-- /page_builder/_left_article_right_two_columns.antlers.html -->
+
+{{ article_class =  'self-start' }}
+{{ if lartc_art_alignment == 'bottom' }}
+    {{ article_class =  'self-end' }}
+{{ /if }}
+
+
+<section class="grid gap-2 fluid-container md:grid-cols-12">
+    
+
+        <div  class="md:col-span-6 flex items-stretch"  >
+
+            <div class="{{ article_class }} w-full">
+                {{ partial:typography/prose as="article" class="contents" }}
+                    {{ lartc_article }}
+                        {{ partial src="components/{type}" }}
+                    {{ /lartc_article }}
+                {{ /partial:typography/prose }}
+            </div>
+            {{# total_results #}}
+            {{# dump #}}
+            {{# lartc_text | dump #}}
+            {{# lartc_title | dump #}}
+        </div>
+
+
+        <div class="md:col-span-2 md:col-start-9 ">
+            {{ partial:typography/prose class="w-full" }}
+                {{ lartc_left_column }}
+            {{ /partial:typography/prose }}
+        </div>
+
+        <div class="md:col-span-2  ">
+            {{ partial:typography/prose class="w-full" }}
+                {{ lartc_right_column }}
+            {{ /partial:typography/prose }}
+        </div>
+
+</section>
+<!-- End: /page_builder/_left_article_right_two_columns.antlers.html -->

@@ -1,0 +1,22 @@
+{{#
+    @name Home
+    @desc Home template
+#}}
+
+<!-- /home.antlers.html -->
+<main id="content"
+    class="outer-grid" 
+>
+    {{ partial:typography/h1 
+        :content="alternative_title" 
+        class="text-[0px]"  
+    }}
+
+
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+    
+    
+</main>
+<!-- End: /home.antlers.html -->

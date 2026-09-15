@@ -1,0 +1,17 @@
+/* Expanse block */
+
+@layer utilities {
+    
+    .expanse > * {
+        /*@apply animate-fadeandmoveout;*/
+        @apply animate-opacityout;
+    }
+    .expanse.expanded > * {
+        opacity: 0;
+        /*transform: translateY(20px);
+        @apply animate-fadeandmovein;*/
+        @apply animate-opacityin;
+    }
+
+
+}

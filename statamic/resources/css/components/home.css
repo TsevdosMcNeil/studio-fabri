@@ -1,0 +1,18 @@
+/* Work */
+
+
+@layer components {
+
+    body.pages-home .aspect-video {
+        aspect-ratio: unset;
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        @apply absolute;
+        @apply top-0;
+        @apply left-0;
+        @apply w-full;
+        @apply h-full;
+    }
+}
+
+

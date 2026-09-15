@@ -1,0 +1,341 @@
+{{#
+	@nameFull width project element
+	@desc CTA to project element with a full width image.
+    @set page.page_builder.full_width_project_element
+#}}
+
+<!-- /page_builder/_full_width_project_element.antlers.html -->
+<section class="relative 
+    w-full 
+    min-h-[14rem] 
+    py-0
+">
+    {{ int_project = 0 }}
+    {{ sticky_slug = null }}
+
+    {{ if random_order }}
+        
+        {{ element_projects = section_projects | shuffle }}
+
+        {{ if sticky_element }}
+        {{# section_projects | first <-- we cannot use this because triggers an error #}}
+
+            {{ section_projects  }}
+            {{ if int_project == 0 }}
+                {{ sticky_slug  = slug }}
+                <div class="overflow-hidden"
+                    x-data="initFullProject_{{ slug | replace('-', '')  }}(); " 
+                >
+                    <a 
+                        href="{{ url }}" 
+                        class="p-0 m-0 focus:outline-none"
+                    >
+                    {{ if mobile_image }}
+                        <figure 
+                            class="h-screen m-0 md:hidden relative"
+                        >
+                        {{ if glide_active:glide_enabled }}
+                            {{ partial:statamic-peak-tools::components/picture
+                                :image="mobile_image" 
+                                sizes="100vw" 
+                                aspect_ratio="9/16" 
+                                quality="100"
+                                lazy="true" 
+                                cover="true" 
+                                srcset_from="snippets/srcset_full_width"
+                            }}
+                        {{ else }}
+                            {{ asset :url="mobile_image" }}
+                                <img
+                                    class="w-full absolute top-0 left-0 object-cover h-full"
+                                    src="{{ url }}"
+                                    alt="{{ alt | ensure_right('.') | entities }}"
+                                    width="{{ width }}"
+                                    height="{{ height }}"
+                                    loading="lazy"
+                                />
+                            {{ /asset }}    
+                        {{ /if }}
+
+                            
+                        </figure>
+                    {{ /if }}
+
+                    {{ if image }}
+                        <figure 
+                            class="h-screen m-0 relative
+                            {{ mobile_image ? 'hidden md:block' : ''}}
+                            "
+                        >
+                            {{ if glide_active:glide_enabled }}
+                                {{ partial:statamic-peak-tools::components/picture
+                                    :image="image" 
+                                    sizes="100vw" 
+                                    aspect_ratio="large:3/2" 
+                                    quality="100"
+                                    lazy="true" 
+                                    cover="true" 
+                                    srcset_from="snippets/srcset_full_width"
+                                }}
+                            {{ else }}
+                                {{ asset :url="image" }}
+                                    <img
+                                        class="w-full
+                                        absolute
+                                        top-0 left-0 object-cover 
+                                        h-full"
+                                        src="{{ url }}"
+                                        alt="{{ alt | ensure_right('.') | entities }}"
+                                        width="{{ width }}"
+                                        height="{{ height }}"
+                                        loading="lazy"
+                                    />
+                                {{ /asset }}    
+                            {{ /if }}
+                        </figure>
+                    {{ /if }}
+                    {{ if featured_embed_video }}
+                        {{  partial:components/video 
+                            :video_url="featured_embed_video" 
+                            video_autoplay="true"
+                            video_loop="true"
+                            wrapper_class="mb-0 h-screen relative {{ mobile_image ? 'hidden md:block' : ''}}"
+                            aspect_class="absolute top-0 left-0 w-full h-full"
+                        }}
+                    {{ /if }}
+                    </a>
+                    <div id="{{ slug | replace('-', '')  }}"
+                        {{ if int_project == 0 }}
+                            x-init="changeProjectTitleInHeader('load')"
+                        {{ /if }}
+                        x-intersect.margin.50px="changeProjectTitleInHeader('scrolldown')"
+                        x-intersect.margin.-20px="changeProjectTitleInHeader('scrollup')"     
+                    ></div>
+                </div>
+                <script>    
+
+                    function initFullProject_{{ slug | replace('-', '')  }}() {
+                    
+                        let lastScrollTop = 0;
+                        let scrollDirection = '';
+                        window.addEventListener("scroll", function() { 
+                            let st = window.pageYOffset || document.documentElement.scrollTop; 
+                            // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+                            if (st > lastScrollTop) {
+                                scrollDirection = 'scrolldown';
+                            } else if (st < lastScrollTop) {
+                                scrollDirection = 'scrollup';
+                            } // else was horizontal scroll
+                            lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+                            //console.log( scrollDirection );
+                        }, false);
+
+                        function changeHeaderNav() { 
+                            //console.log('changeHeaderNav: {{ title }}');
+                            document.getElementById('{{ slug | replace('-', '')  }}').dispatchEvent(
+                                new CustomEvent(
+                                    'change-headernav', 
+                                    { 
+                                        detail: { 
+                                            message: '{{ title }}', 
+                                            link: '{{ url }}' 
+                                        },
+                                        bubbles: true
+                                    }
+                                )
+                            );
+                        }
+                
+                        return {      
+                            changeProjectTitleInHeader(direction) {
+                                //console.log(scrollDirection);
+                                //console.log(direction);
+                                if(scrollDirection == direction) {
+                                    if(direction == 'scrolldown') {
+                                        //console.log('scrolldown 50px');
+                                        changeHeaderNav()
+                                    }
+                                    if(direction == 'scrollup') {
+                                        //console.log('scrollup -10px');
+                                        changeHeaderNav()
+                                    }
+                                }
+                                if(direction == 'load') {
+                                    //console.log('Project loaded for the first time');
+                                    changeHeaderNav()
+                                }
+
+                                
+                            },
+                
+                        }
+                    
+                    }
+                
+                </script>
+            {{ /if }}
+            {{ int_project = int_project + 1 }}
+            {{ /section_projects }}
+        {{ /if }}
+
+    {{ else }}
+        {{ element_projects = section_projects }}
+    {{ /if }}
+
+    {{ element_projects  }}
+        {{ if slug  != sticky_slug }}
+            <div class="overflow-hidden"
+                x-data="initFullProject_{{ slug | replace('-', '')  }}(); " 
+            >
+                <a 
+                    href="{{ url }}" 
+                    class="p-0 m-0 focus:outline-none"
+                >
+                {{ if mobile_image }}
+                    <figure 
+                        class="h-screen m-0 md:hidden relative"
+                    >
+                    {{ if glide_active:glide_enabled }}
+                        {{ partial:statamic-peak-tools::components/picture
+                            :image="mobile_image" 
+                            sizes="100vw" 
+                            aspect_ratio="9/16" 
+                            quality="100"
+                            lazy="true" 
+                            cover="true" 
+                            srcset_from="snippets/srcset_full_width"
+                        }}
+                    {{ else }}
+                        {{ asset :url="mobile_image" }}
+                            <img
+                                class="w-full absolute top-0 left-0 object-cover h-full"
+                                src="{{ url }}"
+                                alt="{{ alt | ensure_right('.') | entities }}"
+                                width="{{ width }}"
+                                height="{{ height }}"
+                                loading="lazy"
+                            />
+                        {{ /asset }}    
+                    {{ /if }}
+
+                        
+                    </figure>
+                {{ /if }}
+
+                {{ if image }}
+                    <figure 
+                        class="h-screen m-0 relative
+                        {{ mobile_image ? 'hidden md:block' : ''}}
+                        "
+                    >
+                        {{ if glide_active:glide_enabled }}
+                            {{ partial:statamic-peak-tools::components/picture
+                                :image="image" 
+                                sizes="100vw" 
+                                aspect_ratio="large:3/2" 
+                                quality="100"
+                                lazy="true" 
+                                cover="true" 
+                                srcset_from="snippets/srcset_full_width"
+                            }}
+                        {{ else }}
+                            {{ asset :url="image" }}
+                                <img
+                                    class="w-full
+                                    absolute
+                                    top-0 left-0 object-cover 
+                                    h-full"
+                                    src="{{ url }}"
+                                    alt="{{ alt | ensure_right('.') | entities }}"
+                                    width="{{ width }}"
+                                    height="{{ height }}"
+                                    loading="lazy"
+                                />
+                            {{ /asset }}    
+                        {{ /if }}
+                    </figure>
+                {{ /if }}
+                {{ if featured_embed_video }}
+                    {{  partial:components/video 
+                        :video_url="featured_embed_video" 
+                        video_autoplay="true"
+                        video_loop="true"
+                        wrapper_class="mb-0 h-screen relative {{ mobile_image ? 'hidden md:block' : ''}}"
+                        aspect_class="absolute top-0 left-0 w-full h-full"
+                    }}
+                {{ /if }}
+                </a>
+                <div id="{{ slug | replace('-', '')  }}"
+                    {{ if int_project == 0 }}
+                        x-init="changeProjectTitleInHeader('load')"
+                    {{ /if }}
+                    x-intersect.margin.50px="changeProjectTitleInHeader('scrolldown')"
+                    x-intersect.margin.-20px="changeProjectTitleInHeader('scrollup')"     
+                ></div>
+            </div>
+            <script>    
+
+                function initFullProject_{{ slug | replace('-', '')  }}() {
+                
+                    let lastScrollTop = 0;
+                    let scrollDirection = '';
+                    window.addEventListener("scroll", function() { 
+                        let st = window.pageYOffset || document.documentElement.scrollTop; 
+                        // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+                        if (st > lastScrollTop) {
+                            scrollDirection = 'scrolldown';
+                        } else if (st < lastScrollTop) {
+                            scrollDirection = 'scrollup';
+                        } // else was horizontal scroll
+                        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+                        //console.log( scrollDirection );
+                    }, false);
+
+                    function changeHeaderNav() { 
+                        //console.log('changeHeaderNav: {{ title }}');
+                        document.getElementById('{{ slug | replace('-', '')  }}').dispatchEvent(
+                            new CustomEvent(
+                                'change-headernav', 
+                                { 
+                                    detail: { 
+                                        message: '{{ title }}', 
+                                        link: '{{ url }}' 
+                                    },
+                                    bubbles: true
+                                }
+                            )
+                        );
+                    }
+            
+                    return {      
+                        changeProjectTitleInHeader(direction) {
+                            //console.log(scrollDirection);
+                            //console.log(direction);
+                            if(scrollDirection == direction) {
+                                if(direction == 'scrolldown') {
+                                    //console.log('scrolldown 50px');
+                                    changeHeaderNav()
+                                }
+                                if(direction == 'scrollup') {
+                                    //console.log('scrollup -10px');
+                                    changeHeaderNav()
+                                }
+                            }
+                            if(direction == 'load') {
+                                //console.log('Project loaded for the first time');
+                                changeHeaderNav()
+                            }
+
+                            
+                        },
+            
+                    }
+                
+                }
+            
+            </script>
+        {{ int_project = int_project + 1 }}
+        {{ /if }}
+    {{ /element_projects }}
+</section>
+<!-- End: /page_builder/_full_width_project_element.antlers.html -->

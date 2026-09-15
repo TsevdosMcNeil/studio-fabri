@@ -1,0 +1,36 @@
+
+{{#
+    @name Filter element
+    @desc A li element for the filter list.
+    @param slug            Slug of the filter item
+    @param title           Title of the filter item
+    @param tax             Taxonomy of the filter item
+#}}
+
+<li id="{{ slug }}"
+    class="cursor-pointer hover:text-primary group" 
+    x-bind:class="
+    selected_{{ tax }}_slug.includes('{{ slug }}')
+        ? 'text-primary'
+        : 'text-black'
+    "
+    @click="select_filter( 
+        '{{ slug }}', 
+        '{{ tax }}',
+        selected_{{ tax }}_slug.includes('{{ slug }}')
+        ? 'remove'
+        : 'add'
+    )"
+>
+    <span x-show="!selected_{{ tax }}_slug.includes('{{ slug }}')">{{ 
+        partial:icons/filter_arrow 
+        class="-mt-[3px]
+            -ml-[20px]
+            -translate-y-1 group-hover:translate-y-0 
+            hidden md:inline-block
+        "
+    }}</span>
+    <span x-show="selected_{{ tax }}_slug.includes('{{ slug }}')">{{ 
+        partial:icons/close
+    }}</span><span>{{ title }}</span>
+</li>

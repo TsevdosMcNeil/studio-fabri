@@ -1,0 +1,27 @@
+title: 'Extra large text'
+fields:
+  -
+    handle: content
+    field:
+      input_type: text
+      antlers: false
+      type: text
+      display: Content
+      icon: text
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: margin_bottom
+    field:
+      input_type: text
+      antlers: false
+      type: text
+      display: 'Margin bottom'
+      icon: text
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

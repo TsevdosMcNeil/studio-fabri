@@ -1,0 +1,185 @@
+{{#
+	@name Section
+	@desc A column repeater block to be included in the page builder
+    @set page.page_builder.section
+#}}
+
+<!-- /page_builder/_section.antlers.html -->
+
+{{ display_anchor =  false }}
+
+{{ section_class =  'fluid-container md:grid-cols-12' }}
+
+{{ if hide_viewports }}
+    {{ display_anchor =  true }}
+    {{ hide_viewports }} 
+        {{ if ( value == 'mobile' ) }} 
+            {{ section_class .=  ' hidden' }}
+        {{ else }}
+            {{ section_class .=  ' grid' }}
+        {{ /if }}
+
+        {{ if ( value == 'tablet' ) }} 
+            {{ section_class .=  ' md:hidden' }}
+        {{ else }}
+            {{ section_class .=  ' md:grid' }}
+        {{ /if }}
+
+        {{ if ( value == 'desktop' ) }} 
+            {{ section_class .=  ' xl:hidden' }}
+        {{ else }}
+            {{ section_class .=  ' xl:grid' }}
+        {{ /if }}
+    {{ /hide_viewports }} 
+
+{{ else }}
+
+    {{ section_class .=  ' grid' }}
+
+{{ /if }}
+
+
+
+{{# Force each section to window height in Pages collection #}}
+{{ if collection.handle == 'pages' && title != 'News'}}
+    {{ section_class .=  ' md:min-h-screen' }}
+{{ /if }}
+
+{{ if screen_minimum_height }}
+    {{ section_class .=  ' md:min-h-screen' }}
+{{ /if }}
+
+{{ if collection.handle == 'projects'}}
+    {{ section_class .=  ' gap-0 py-0 md:py-2' }}
+{{ else }}   
+    {{ section_class .=  ' gap-4 py-2 ' }}
+{{ /if }}
+
+{{ if remove_columns_gap}}
+    {{ section_class .=  ' md:gap-0' }}
+ {{ else }}   
+    {{ section_class .=  ' md:gap-4' }}
+{{ /if }}
+
+
+{{ if top_padding }}
+    {{ section_class .=  ' md:pt-' + (top_padding*4) }}
+{{ /if }}
+
+{{ if bottom_padding }}
+    {{ section_class .=  ' md:pb-' + (bottom_padding*4) }}
+{{ /if }}
+
+{{ if top_border }}
+    {{ section_class .=  ' border-black border-t pt-[15px] md:pt-[17px]'   }}
+{{ /if }}
+
+{{# dump #}}
+
+{{# lateral_padding | dump #}}
+
+{{ if display_anchor && slug }}
+    <a id="{{ slug }}"></a>
+    {{ slug =  'section_'+slug }}
+{{ /if }}
+
+
+<section id="{{ slug }}" 
+    x-data="{ shown_{{ id }}: false }" 
+    x-intersect.once="shown_{{ id }} = true;"
+    class="{{section_class}} opacity-0"
+    :class="shown_{{ id }} ? 'animate-appearsin' : ''" 
+>
+    {{ columns }}
+
+        {{ column_class =  '' }}
+        {{# column_class .=  ' border border-black'  #}}
+        
+        {{ if size }}
+            {{ column_class .=  ' md:col-span-' + size }}
+        {{ /if }}
+
+        {{ if set_horizontal_position && horizontal_position > 0 }}
+            {{ column_class .=  ' md:col-start-' + horizontal_position }}
+        {{ /if }}
+
+        {{ if set_span_rows && span_rows > 0 }}
+            {{ column_class .=  ' md:row-span-' + span_rows }}
+        {{ /if }}
+
+        
+        {{ if column_hide_viewports }}
+            {{ column_hide_viewports }} 
+                {{ if ( value == 'mobile' ) }} 
+                    {{ column_class .=  ' mobile-only:hidden' }}
+                {{ /if }}
+
+                {{ if ( value == 'tablet' ) }} 
+                    {{ column_class .=  ' tablet-only:hidden' }}
+                {{ /if }}
+
+                {{ if ( value == 'desktop' ) }} 
+                    {{ column_class .=  ' xl:hidden' }}
+                {{ /if }}
+            {{ /column_hide_viewports }} 
+        {{ /if }}
+
+
+        {{ if vertical_alignment == 'middle' }}
+            {{ column_class .=  ' grid items-center' }}
+        {{ /if }}
+        {{ if vertical_alignment == 'bottom' }}
+            {{ column_class .= ' grid items-end' }}
+        {{ /if }}
+
+        {{# mbtb-only:pt-4 mbtb-only:pt-8 mbtb-only:pt-12 mbtb-only:pt-16 mbtb-only:pt-20 mbtb-only:pt-24 mbtb-only:pt-28 mbtb-only:pt-32 mbtb-only:pt-36 mbtb-only:pt-40  #}}
+        {{ if mobile_top_padding != -1 }}
+            {{ column_class .=  ' mbtb-only:pt-' + (mobile_top_padding*4) }}
+        {{ /if }}
+
+        {{# mbtb-only:pb-4 mbtb-only:pb-8 mbtb-only:pb-12 mbtb-only:pb-16 mbtb-only:pb-20 mbtb-only:pb-24 mbtb-only:pb-28 mbtb-only:pb-32 mbtb-only:pb-36 mbtb-only:pb-40  #}}
+        {{ if mobile_bottom_padding != -1 }}
+            {{ column_class .= ' mbtb-only:pb-' + (mobile_bottom_padding*4) }}
+        {{ /if }}
+
+        {{# mbtb-only:pl-4 mbtb-only:pl-8 mbtb-only:pl-12 mbtb-only:pl-16 mbtb-only:pl-20 mbtb-only:pl-24 mbtb-only:pl-28 mbtb-only:pl-32 mbtb-only:pl-36 mbtb-only:pl-40  #}}
+        {{ if mobile_left_padding != -1 }}
+            {{ column_class .=  ' mbtb-only:pl-' + (mobile_left_padding*4) }}
+        {{ /if }}
+
+        {{# mbtb-only:pr-4 mbtb-only:pr-8 mbtb-only:pr-12 mbtb-only:pr-16 mbtb-only:pr-20 mbtb-only:pr-24 mbtb-only:pr-28 mbtb-only:pr-32 mbtb-only:pr-36 mbtb-only:pr-40  #}}
+        {{ if mobile_right_padding != -1 }}
+            {{ column_class .= ' mbtb-only:pr-' + (mobile_right_padding*4) }}
+        {{ /if }}
+
+        {{ if top_padding }}
+            {{ column_class .=  ' md:pt-' + (top_padding*4) }}
+        {{ /if }}
+
+        {{ if right_padding }}
+            {{ column_class .=  ' md:pr-' + (right_padding*4) }}
+        {{ /if }}
+
+        {{ if bottom_padding }}
+            {{ column_class .=  ' md:pb-' + (bottom_padding*4) }}
+        {{ /if }}
+
+        {{ if left_padding }}
+            {{ column_class .=  ' md:pl-' + (left_padding*4) }}
+        {{ /if }}
+
+        
+            {{ partial:typography/prose 
+                as="div" 
+                :class="column_class" 
+                
+            }}
+                {{ column_article }}
+                    {{ partial src="components/{type}" }}
+                {{ /column_article }}
+            {{ /partial:typography/prose }}
+
+    {{ /columns }}
+</section>
+
+<!-- End: /page_builder/_section.antlers.html -->

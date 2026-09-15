@@ -1,0 +1,32 @@
+{{#
+    @name Footer
+    @desc The footer rendered on each project page.
+#}}
+
+<!-- /projects/_footer.antlers.html -->
+{{ if custom_next_project }}
+    {{ custom_next_project }}
+        {{# partial:projects/footer_content #}}
+        {{ partial:layout/footer_collection }}
+    {{ /custom_next_project }}
+{{ else }}
+
+    {{ collection:next 
+        in="projects" 
+        as="items" 
+        limit="1" 
+        sort="order" 
+    }}
+    {{ unless no_results }}
+        {{ items }}
+            {{# partial:projects/footer_content #}}
+            {{ partial:layout/footer_collection }}
+        {{ /items }}
+
+    {{ else }}
+        {{ partial:layout/footer }}
+    {{ /unless }}
+    {{ /collection:next }}
+{{ /if }}
+
+<!-- End: /projects/_footer.antlers.html -->

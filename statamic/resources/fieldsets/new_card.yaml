@@ -1,0 +1,138 @@
+title: 'New card'
+fields:
+  -
+    handle: card_type
+    field:
+      options:
+        image: Image
+        video: Video
+      default: Image
+      type: button_group
+      display: Type
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: card_video_url
+    field: video.video_url
+    config:
+      width: 50
+      if:
+        card_type: 'equals video'
+  -
+    handle: card_video_rw
+    field:
+      input_type: number
+      default: '16'
+      antlers: false
+      type: text
+      display: 'Ratio: Width'
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        card_type: 'equals video'
+  -
+    handle: card_video_rh
+    field:
+      input_type: number
+      default: '10'
+      antlers: false
+      type: text
+      display: 'Ratio: Height'
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        card_type: 'equals video'
+  -
+    handle: card_image
+    field: common.image
+    config:
+      if:
+        card_type: 'equals image'
+  -
+    handle: card_size
+    field: common.size
+    config:
+      width: 50
+      if:
+        card_type: 'equals image'
+  -
+    handle: card_orientation
+    field: common.orientation
+    config:
+      width: 50
+      if:
+        card_type: 'equals image'
+  -
+    handle: card_caption_position
+    field:
+      options:
+        below: Below
+        next: Next
+      type: button_group
+      display: 'Caption position'
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      default: below
+  -
+    handle: card_link
+    field:
+      type: link
+      display: Link
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: target_blank
+    field:
+      default: false
+      type: toggle
+      display: 'Open in a new window'
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: card_title
+    field:
+      input_type: text
+      antlers: false
+      type: text
+      display: Title
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: card_caption
+    field: common.text_rich
+    config:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+      display: Caption

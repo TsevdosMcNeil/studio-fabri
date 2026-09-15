@@ -1,0 +1,20 @@
+{{#
+    @name Expanded line
+    @desc Border line that can reach the left and right limits of the window.
+    @param line_colour          Line colour
+    @param increment_direction  Growing direction
+    @set page.article.expanded_line
+    
+#}}
+
+<!-- /components/_expanded_line.antlers.html -->
+{{ line_class = ' expanded-line w-full size-md border-t border-solid relative' }}
+{{ if line_colour == 'grey' }}
+    {{ line_class .= ' border-primary' }}
+{{ else }}
+    {{ line_class .= ' border-black' }}
+{{ /if }}
+
+
+<div class="{{ increment_direction }} {{ line_class }}"></div>
+<!-- End: /components/_expanded_line.antlers.html -->

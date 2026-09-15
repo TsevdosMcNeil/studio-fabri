@@ -1,0 +1,130 @@
+title: 'Page builder'
+fields:
+  -
+    handle: page_builder
+    field:
+      type: replicator
+      localizable: true
+      hide_display: true
+      collapse: true
+      listable: false
+      display: 'Page builder'
+      sets:
+        interactive:
+          display: Interactive
+          instructions: 'Interactive blocks.'
+          icon: programming-script-code
+          sets:
+            call_to_action:
+              display: 'Call to action'
+              instructions: 'Show a call to action.'
+              fields:
+                -
+                  import: call_to_action
+            columns:
+              display: Columns
+              instructions: 'Text columns with optional images and buttons.'
+              fields:
+                -
+                  import: columns
+            form:
+              display: Form
+              instructions: 'Select and render a form.'
+              icon: mail-chat-bubble-text
+              fields:
+                -
+                  import: form
+            index_content:
+              display: 'Index content'
+              instructions: 'Render the currently mounted entries if available.'
+              fields:
+                -
+                  import: index_content
+            link_blocks:
+              display: 'Link blocks'
+              instructions: 'Show linkable blocks with text.'
+              icon: link
+              fields:
+                -
+                  import: link_blocks
+            news:
+              display: News
+              instructions: 'List the most recent News.'
+              fields:
+                -
+                  import: news
+            projects:
+              display: Projects
+              instructions: 'List the most recent Projects.'
+              fields:
+                -
+                  import: projects
+            text_columns:
+              display: 'Text columns'
+              instructions: 'Text wrapping in two columns.'
+              fields:
+                -
+                  import: text_columns
+            left_article_right_two_columns:
+              display: 'Left article +  Right two columns'
+              instructions: 'Two columns: left with article, right with text in two columns'
+              fields:
+                -
+                  import: left_article_right_two_columns
+        text:
+          display: Text
+          instructions: 'Text based blocks.'
+          icon: text-formatting-initial-letter
+          sets:
+            article:
+              display: Article
+              instructions: 'Long form content, can be expanded with media like figures, video, quotes or tables.'
+              icon: text-formatting-image-bottom
+              fields:
+                -
+                  import: article
+            divider:
+              display: Divider
+              instructions: 'A visual divider between blocks.'
+              fields:
+                -
+                  import: divider
+            full_width_image:
+              display: 'Full width image'
+              instructions: 'A full width image with optional text and button(s).'
+              fields:
+                -
+                  import: full_width_image
+            image_and_text:
+              display: 'Image and text'
+              instructions: 'An image and text side by side.'
+              fields:
+                -
+                  import: image_and_text
+            full_width_content:
+              display: 'Full width content'
+              instructions: 'A full-width content with the option of include lateral padding.'
+              fields:
+                -
+                  import: full_width_content
+            full_width_header:
+              display: 'Full width header'
+              instructions: 'A full-width header with two positions.'
+              fields:
+                -
+                  import: full_width_header
+            full_width_project_element:
+              display: 'Full width project element'
+              instructions: 'CTA to project element with a full width image.'
+              fields:
+                -
+                  import: full_width_project_element
+            section:
+              display: 'Section'
+              instructions: 'Column repeater block .'
+              fields:
+                -
+                  import: section
+      instructions_position: above
+      visibility: visible
+      previews: true

@@ -1,0 +1,209 @@
+/* If you don't want to use the JS in CSS syntax from `tailwind.config.site.js` you can add your own custom CSS here. Use different layers to make sure your CSS either get's purged or not: https://tailwindcss.com/docs/functions-and-directives#layer. CSS in the base layer won't get purged. */
+
+@layer base {
+
+    @font-face {
+        font-family: 'CircularStd';
+        src: url('/resources/fonts/CircularStd/CircularStd-Book.eot');
+        src: url('/resources/fonts/CircularStd/CircularStd-Book.eot?#iefix') format('embedded-opentype'),
+            url('/resources/fonts/CircularStd/CircularStd-Book.woff2') format('woff2'),
+            url('/resources/fonts/CircularStd/CircularStd-Book.woff') format('woff'),
+            url('/resources/fonts/CircularStd/CircularStd-Book.svg#CircularStd-Book') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'CircularStd';
+        src: url('/resources/fonts/CircularStd/CircularStd-Bold.eot');
+        src: url('/resources/fonts/CircularStd/CircularStd-Bold.eot?#iefix') format('embedded-opentype'),
+            url('/resources/fonts/CircularStd/CircularStd-Bold.woff2') format('woff2'),
+            url('/resources/fonts/CircularStd/CircularStd-Bold.woff') format('woff'),
+            url('/resources/fonts/CircularStd/CircularStd-Bold.svg#CircularStd-Bold') format('svg');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+
+
+    @font-face {
+        font-family: 'Aktiv Grotesk';
+        src: url('/resources/fonts/aktiv/AktivGroteskW01.eot');
+        src: url('/resources/fonts/aktiv/AktivGroteskW01.eot?#iefix') format('embedded-opentype'),
+            url('/resources/fonts/aktiv/AktivGroteskW01.woff2') format('woff2'),
+            url('/resources/fonts/aktiv/AktivGroteskW01.woff') format('woff'),
+            url('/resources/fonts/aktiv/AktivGroteskW01.svg#AktivGroteskW01') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
+
+    @font-face {
+        font-family: 'Riviera Nights Trial';
+        src: url('/resources/fonts/rivieranights/RivieraNightsTrial-Bold.eot');
+        src: url('/resources/fonts/rivieranights/RivieraNightsTrial-Bold.eot?#iefix') format('embedded-opentype'),
+            url('/resources/fonts/rivieranights/RivieraNightsTrial-Bold.woff2') format('woff2'),
+            url('/resources/fonts/rivieranights/RivieraNightsTrial-Bold.woff') format('woff'),
+            url('/resources/fonts/rivieranights/RivieraNightsTrial-Bold.svg#RivieraNightsTrial-Bold') format('svg');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+
+
+    h1, h2 {
+        @apply text-4xl lg:text-6xl 2xl:text-8xl;
+        @apply font-bold;
+        @apply leading-none;
+        @apply md:tracking-tight;
+    }
+    h3 {
+        @apply text-base;
+        @apply font-normal;
+        @apply leading-none;
+    }
+    h4 {
+        @apply text-base md:text-4xl;
+        @apply font-normal;
+        @apply mb-3 md:mb-6;
+        @apply leading-compact;
+    }
+    h4:last-of-type {
+        @apply mb-0;
+    }
+
+    p, h5, h6 {
+        @apply leading-tight;
+    }
+
+    hr {
+        @apply border-black;
+    }
+
+    p {
+        @apply mb-3;
+    }
+    p:last-of-type {
+        @apply mb-0;
+    }
+    b, strong {
+        font-weight:500;
+    }
+
+    body.bright {
+        @apply bg-white;
+        @apply text-black;
+    }
+    body.bright .home_header{
+        @apply bg-white;
+        @apply text-black;
+    }
+    body.bright .footer_menu span {
+        @apply text-black;
+    }
+    body.bright footer#contact {
+        @apply text-black;
+    }
+    body.bright section a:not([class^='text-']) {
+        @apply text-primary hover:text-black;
+    }
+
+
+    body.dark {
+        @apply bg-salmon;
+        @apply text-white;
+    }
+    body.dark header{
+        @apply bg-transparent;
+        @apply text-white;
+    }
+    body.dark .border-black {
+        @apply border-white;
+    }
+    body.dark header nav svg.stroke-black{
+        @apply stroke-white;
+    }
+    body.dark .home_header{
+        @apply bg-salmon;
+        @apply text-white;
+    }
+    body.dark .text-neutral,
+    body.dark .text-black {
+        @apply text-white;
+    }
+    body.dark footer#contact {
+        @apply text-white;
+    }
+
+
+    /* Cookie banner */
+    body.dark div[x-show="$store.cookieBanner.consent === null"],
+    body.dark div[x-show="$store.cookieBanner.consent === null"] .text-neutral,
+    body.dark div[x-show="$store.cookieBanner.consent === null"] .text-black {
+        color: black;
+    }
+
+    figure.not-prose {
+        margin: 0 !important;
+    }
+
+
+    .text-header {
+        line-height: 0.7;
+    }
+
+
+    .loading > article {
+        @apply animate-appearsout;
+    }
+    /* .loaded > article:first-of-type {
+        @apply animate-appearsin;
+    } */
+
+    .loaded article:nth-child(2n) { animation-delay: .3s }
+    .loaded article:nth-child(3n) { animation-delay: .6s }
+    .loaded article:nth-child(4n) { animation-delay: .9s }
+    .loaded article:nth-child(5n) { animation-delay: .3s }
+    .loaded article:nth-child(6n) { animation-delay: .6s }
+    .loaded article:nth-child(7n) { animation-delay: .3s }
+    .loaded article:nth-child(8n) { animation-delay: .6s }
+    .loaded article:nth-child(9n) { animation-delay: .9s }
+
+    .opacity-0 figure {
+        /* transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: 900ms;
+        transition-duration: 700ms;
+        opacity: 0 */
+    }
+
+    .opacity-0.animate-appearsin figure {
+        /*opacity: 1*/
+    }
+
+    article.animate-appearsin:nth-child(2n) { animation-delay: .3s }
+    article.animate-appearsin:nth-child(3n) { animation-delay: .3s }
+    article.animate-appearsin:nth-child(4n) { animation-delay: .6s }
+    article.animate-appearsin:nth-child(5n) { animation-delay: .9s }
+    article.animate-appearsin:nth-child(6n) { animation-delay: .3s }
+    article.animate-appearsin:nth-child(7n) { animation-delay: .6s }
+
+    section div:nth-child(2n) article.animate-appearsin { animation-delay: .3s }
+    section div:nth-child(3n) article.animate-appearsin { animation-delay: .6s }
+    section div:nth-child(4n) article.animate-appearsin { animation-delay: .9s }
+    section div:nth-child(5n) article.animate-appearsin { animation-delay: 1.2s }
+    section div:nth-child(6n) article.animate-appearsin { animation-delay: 1.5s }
+    section div:nth-child(7n) article.animate-appearsin { animation-delay: 1.8s }
+
+
+}
+
+@layer components {
+
+}
+
+@layer utilities {
+
+}

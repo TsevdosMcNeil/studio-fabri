@@ -1,0 +1,135 @@
+title: News
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: General
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              input_type: text
+              localizable: true
+              listable: true
+              display: Title
+              validate:
+                - required
+          -
+            handle: new_summary
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+              smart_typography: false
+              save_html: false
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: false
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              type: bard
+              display: Summary
+              icon: bard
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+      -
+        display: 'Page builder'
+        fields:
+          -
+            import: page_builder
+  seo:
+    display: SEO
+    sections:
+      -
+        display: Basic
+        instructions: 'Basic SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_basic'
+      -
+        display: Advanced
+        instructions: 'Advanced SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_advanced'
+      -
+        display: 'Open Graph'
+        instructions: 'Open Graph meta tags for social sharing.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_open_graph'
+      -
+        display: Sitemap
+        instructions: 'Sitemap configuration.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_sitemap'
+      -
+        display: 'JSON-ld Schema'
+        instructions: 'Custom JSON-ld schema objects.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_jsonld'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        display: Meta
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              generate: true
+              listable: hidden
+              display: Slug
+              validate:
+                - required
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - pages
+              max_items: 1
+              listable: false
+              localizable: true
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required
+          -
+            handle: image
+            field: common.image
+            config:
+              mode: grid
+              listable: true
+              width: 100
+              folder: news
+              show_set_alt: true

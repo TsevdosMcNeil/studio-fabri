@@ -1,0 +1,96 @@
+title: 'Left article +  Right two columns'
+fields:
+  -
+    handle: lartc_art_alignment
+    field:
+      options:
+        top: null
+        bottom: null
+      default: top
+      type: button_group
+      display: 'Article vertical alignment'
+      icon: button_group
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    import: article
+    prefix: lartc_
+    field:
+      validate:
+        - sometimes
+  -
+    handle: lartc_left_column
+    field:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+      smart_typography: false
+      save_html: false
+      inline: false
+      toolbar_mode: fixed
+      reading_time: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      remove_empty_nodes: false
+      antlers: false
+      link_noopener: false
+      link_noreferrer: false
+      target_blank: false
+      type: bard
+      display: 'Right Column: First Copy'
+      icon: bard
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      width: 50
+  -
+    handle: lartc_right_column
+    field:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+      smart_typography: false
+      save_html: false
+      inline: false
+      toolbar_mode: fixed
+      reading_time: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      remove_empty_nodes: false
+      antlers: false
+      link_noopener: false
+      link_noreferrer: false
+      target_blank: false
+      type: bard
+      display: 'Right Column: Last Copy'
+      icon: bard
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      width: 50

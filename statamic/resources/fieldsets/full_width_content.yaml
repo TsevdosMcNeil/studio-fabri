@@ -1,0 +1,66 @@
+title: 'Full width content'
+fields:
+  -
+    handle: content
+    field:
+      buttons:
+        - h1
+        - h2
+        - h3
+        - h4
+        - h5
+        - h6
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+      smart_typography: false
+      save_html: false
+      inline: false
+      toolbar_mode: fixed
+      reading_time: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      remove_empty_nodes: false
+      antlers: false
+      link_noopener: false
+      link_noreferrer: false
+      target_blank: false
+      type: bard
+      display: Content
+      icon: bard
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: anchor
+    field:
+      input_type: text
+      prepend: '#'
+      antlers: false
+      type: text
+      display: Anchor
+      icon: text
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: remove_padding
+    field:
+      type: toggle
+      width: 33
+  -
+    handle: has_top_border
+    field:
+      type: toggle
+      width: 33

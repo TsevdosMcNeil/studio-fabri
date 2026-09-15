@@ -1,0 +1,11 @@
+/* Work */
+
+
+@layer components {
+
+    body.pages-work .aspect-video {
+        aspect-ratio: 16 / 10;
+    }
+}
+
+

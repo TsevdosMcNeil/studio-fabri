@@ -1,0 +1,22 @@
+{{#
+    @name Figcaption
+    @desc The typography caption partial to render a caption with `as` and `caption` attributes.
+    @param content The caption content.
+    @param as The wrapping element. Defaults to `p`.
+    @param color Set a custom text color utility. Falls back to `text-black`.
+    @param class Add custom CSS classes.
+#}}
+
+<!-- /typography/_figcaption.antlers.html -->
+{{ if caption }}
+    <figcaption class="md:hidden mt-2 md:w-1/3">
+        {{ partial:components/arrow
+            wrapper_class="caption_arrow" 
+            arrow_color="primary"  
+        }}
+        <{{ as or 'p' }} class="text-sm {{ color or 'text-black' }} {{ class }}">
+            {{ caption }}
+        </{{ as or 'p' }}>
+    </figcaption>
+{{ /if }}
+<!-- End: /typography/_figcaption.antlers.html -->

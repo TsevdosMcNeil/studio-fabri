@@ -1,0 +1,145 @@
+{{#
+    @name Header
+    @desc The sites header rendered on each page.
+#}}
+
+<!-- /layout/_header.antlers.html -->
+<header 
+    class="w-full py-17px z-20 top-0 fixed 
+    {{ {is_homepage } ? '' : 'transition-transform' }}" 
+    x-data="initHeadeScroll({{is_homepage }})"
+    x-on:scroll.window="scroll()"
+    x-bind:class="{
+            '-translate-y-full': !showmenu,
+            'bg-white': bgmenu,
+        }"
+    @change-onfooter.window="footer_layout=$event.detail.onfooter"
+    @opened-nav.window="closed_nav=$event.detail.isclosed;"
+>
+
+    <div class="fluid-container 
+        flex 
+        justify-between 
+        items-center 
+        relative
+    ">
+        {{# Make partials you want to use for the header or use and edit premade examples like the following ones. #}}
+        {{ partial:components/logo }}
+        <div x-show="!footer_layout">
+            {{ partial:navigation/main }}
+        </div>
+    </div>
+
+    {{ if is_homepage }}
+    <div 
+        x-show="prjctTtl && closed_nav"
+        class="w-full 
+            pt-20px 
+            pb-14px 
+            fixed 
+            z-10 
+            top-0 
+            fluid-container 
+            grid 
+            gap-2 
+            md:grid-cols-12 
+            home_header 
+            transition-colors
+        "
+    >
+        <div class="md:col-span-2 md:col-start-9">
+            <h2 
+                id="projectTitle"
+                class="mt-0 
+                    ml-10 md:ml-0
+                    text-neutral 
+                    text-left 
+                    text-header 
+                    tracking-normal 
+                    animate-fadeandmovein
+                "
+                @change-headernav.window="
+                    animateProjectTitle(); 
+                    prjctTtlChngd = $event.detail.message; 
+                    prjctLnk = $event.detail.link; 
+                "
+            >
+                <a class="fixed 
+                        z-30 
+                        bg-red 
+                        group
+                    " 
+                    :href="prjctLnk"
+                >
+                    <span x-html="prjctTtl" 
+                        class="leading-nav
+                        text-black group-hover:text-primary transition-colors"
+                    ></span>&nbsp;{{ partial:icons/hover_arrow 
+                        class="-mt-[3px]
+                            rotate-90 
+                            -translate-x-1 group-hover:translate-x-0 
+                        " 
+                    }}
+                </a>&nbsp;
+            </h2>
+        </div>
+    </div>
+    {{ /if }}
+
+</header>
+<script>
+
+    function initHeadeScroll( is_homepage ) {
+
+        return {      
+            showmenu:            true,
+            closed_nav:          true,
+            footer_layout:       false,
+            bgmenu:              false,
+            lastPos:             window.scrollY,
+            scrollLimit:         100,
+            prjctTtl:            '{{ title }}',
+            prjctLnk:            '{{ url }}',
+            prjctTtlChngd:       '{{ title }}',
+
+            scroll() {
+                this.showmenu = this.lastPos > window.scrollY || window.scrollY <= 0;
+                this.bgmenu   = window.scrollY >= this.scrollLimit;
+                this.lastPos  = window.scrollY;
+                
+                if(is_homepage) {
+                    this.showmenu = true;
+                    this.bgmenu   = false;
+                }
+                if(this.footer_layout == true) {
+                    this.showmenu = true;
+                }
+
+                //console.log('this.lastPos '+this.lastPos)
+                //console.log('this.showmenu '+this.showmenu)
+                //console.log('this.prjctTtl '+this.prjctTtl)
+                //console.log('this.footer_layout '+this.footer_layout)
+                //console.log('window.scrollY '+window.scrollY)
+            },
+
+            animateProjectTitle() {
+                //console.log('animateTitle');
+                this.prjctTtl = '&nbsp;'
+                document.getElementById("projectTitle").classList.add('animate-fadeandmovein');
+                let self = this;
+                setTimeout(function() {
+                    self.prjctTtl = self.prjctTtlChngd
+                }, 200);
+                setTimeout(function() {
+                    document.getElementById("projectTitle").classList.remove('animate-fadeandmovein');
+                }, 700);
+                
+
+            },
+
+        }
+    
+    }
+  
+  </script>
+<!-- End: /layout/_header.antlers.html -->

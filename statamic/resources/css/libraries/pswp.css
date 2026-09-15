@@ -1,0 +1,148 @@
+/* 
+ * PhotoSwipe Styles
+ * https://photoswipe.com/styling/
+*/
+
+.pswp { 
+    --pswp-bg: white !important; 
+    --pswp-placeholder-bg: white !important;
+}
+.pswp__bg {
+    opacity: 1 !important; 
+}
+
+.pswp__container {
+    height: calc(100vh - 120px)!important;
+    top: 60px !important; 
+    width: 100% !important;
+    /* slider transition effect */
+    transition: transform 0.35s ease-in-out; 
+}
+/*
+.pswp__container {
+    height: calc(100vh - 120px)!important;
+    top: 60px !important; 
+    transition: transform 0.35s ease-in-out; 
+    width: calc(100vw - 140px)!important;
+    left:auto !important;
+    right: 70px !important; 
+    
+    @media (min-width: 1850px) {
+        width: 100% !important;
+        left: 0 !important;
+        right: auto !important; 
+    }
+}
+*/
+.pswp__zoom-wrap {
+    transform: none !important;
+    width:  100vw !important;
+    height: calc(100vh - 120px)!important;
+}
+.pswp__zoom-wrap .pswp__img {
+    max-width: calc(100vw - 160px)!important;
+    max-height: calc(100vh - 120px)!important;
+    width: auto !important;
+    height: auto !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    transition: transform 0.35s ease-in-out; 
+}
+
+.pswp__button svg,
+.pswp__button polygon {
+    @apply fill-black  !important;
+}
+.pswp__button:hover svg,
+.pswp__button:hover polygon {
+    @apply fill-primary  !important;
+}
+.pswp__button--close {
+    position:absolute !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin-top:25px !important;
+    margin-right: 35px !important;
+}
+.pswp__button--close .pswp__icn {
+    width: 30px !important;
+    height: 30px !important;
+    top: 0  !important;
+    left: 0 !important;
+}
+.pswp__button--arrow {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 0 !important;
+}
+  
+.pswp__button--arrow .pswp__icn {
+    top: 0  !important;
+    margin-top: 0 !important;
+    left: 0  !important;
+    right: auto !important;
+    width: 30px !important;
+    height: 30px !important;
+}
+.pswp__button--arrow--prev {
+    left: 35px !important;
+}
+.pswp__button--arrow--prev .pswp__icn {
+    transform: scale(-1, 1);
+}
+.pswp__button--arrow--next {
+    right: 35px !important;
+}
+.pswp__button--arrow--next .pswp__icn {
+    transform: none !important;
+}
+
+.pswp__counter {
+    height: auto !important;
+    margin-top: 24px !important;
+    -webkit-margin-start: auto !important;
+    margin-inline-start: auto !important;
+    -webkit-margin-end: auto !important;
+    margin-inline-end: auto !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    color: black !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+    letter-spacing: -0.14em;
+}
+.pswp__preloader {
+    display:none !important;
+}
+
+.pswp__custom-caption {
+    background: white;
+    font-size: 16px;
+    color: black;
+    width: 100%;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    max-height:40px;
+    text-align: center;
+  }
+  .pswp__custom-caption a {
+    color: black;
+    text-decoration: underline;
+  }
+  .pswp__custom-caption .caption_arrow {
+    display:none;
+  }
+  
+  .hidden-caption-content {
+    display: none;
+  }
+
+
+.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img, 
+.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img:active, 
+.pswp__zoom-wrap .pswp__img {
+    @apply cursor-lightboxminus;
+}

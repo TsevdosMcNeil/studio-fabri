@@ -1,0 +1,72 @@
+{{#
+    @name News item
+    @desc A News item component.
+    @param class Add optional CSS classes.
+#}}
+
+<!-- /components/_news_item.antlers.html -->
+{{ figure_class =  'mb-0' }}
+{{ if ratio_number }}
+    {{ figure_class .=  ' aspect-[' }}
+    {{ figure_class .=  ratio_number }}
+    {{ figure_class .=  ']' }}
+{{ /if }}
+
+
+
+<article  x-data="{ shown_new : false }" 
+    x-intersect.once="shown_new = true;"
+    class="opacity-0 {{ item_class }}"
+    :class="shown_new ? 'animate-appearsin' : ''" 
+>
+
+<div class="no-underline group p-1 -m-1 focus:outline-none focus-visible:ring-2 ring-primary group mb-48 flex gap-4 {{ article_display }}"> 
+    <figure class="{{ figure_class }} {{ figure_width }}">
+        {{ if image }}
+            {{ if glide_active:glide_enabled }}
+                {{ partial:statamic-peak-tools::components/picture 
+                    :image="image" 
+                    sizes="(min-width: 1280px) 430px, (min-width: 768px) 30vw, 90vw" 
+                    :aspect_ratio="ratio_number" 
+                    lazy="true" 
+                    cover="true" 
+                }}
+            {{ else }}
+                {{ asset :url="image" }}
+                    <img
+                        class="w-full" 
+                        src="{{ url }}"
+                        alt="{{ alt | ensure_right('.') | entities }}"
+                        width="{{ width }}"
+                        height="{{ height }}"
+                        loading="lazy"
+                    />
+                {{ /asset }}    
+            {{ /if }}
+        {{ else }}
+            <!-- No image -->
+        {{ /if }}
+    </figure>
+
+
+    <div class="{{ summary_width }}">
+
+        {{ partial:typography/time 
+            :content="date" 
+            format='DD.MM.YY'
+            class="text-sm" 
+        }}
+
+        
+        {{ partial:typography/h3 
+            as="div"
+            :content="new_summary" 
+            class="no-underline text-primary " 
+        }}
+    </div>
+</div>
+
+    
+</article>
+
+<!-- End: /components/_news_item.antlers.html -->

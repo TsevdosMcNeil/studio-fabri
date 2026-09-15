@@ -1,0 +1,395 @@
+{{#
+    @name Projects show
+    @desc The Projects show template.
+#}}
+
+<!-- /projects/show.antlers.html -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ permalink }}"
+        },
+        "headline": "{{ title }}",
+        "image": "{{ config:app:url }}{{ image }}",
+        "datePublished": "{{ date format="Y-m-d\TH:i:s" }}",
+        "author": {
+            "@type": "Organization",
+            "name": "{{ config:app:name }}",
+            "url": "{{ config:app:url }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ config:app:name }}"{{ if seo:organization_logo }},
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ config:app:url }}{{ glide:seo:organization_logo width='336' height='336' fit='contain' }}"
+            }{{ /if }}
+        }
+    }
+</script>
+<script>
+
+    /**
+    * Wait for DOM to load, then remove opacity-0 class from expanse containers
+    */
+    document.addEventListener("DOMContentLoaded", function() {
+        var expanseContainers = document.getElementsByClassName('expanse');
+        for (var i = 0; i < expanseContainers.length; i++) {    
+            console.log('expanseContainers['+i+'] opacity 1' );   
+            expanseContainers[i].classList.remove('opacity-0');
+        }
+    });
+</script>   
+<main x-data="{ expanded: false, closed_nav: true }" 
+    class="outer-grid" 
+    id="content"
+    @opened-nav.window="closed_nav=$event.detail.isclosed;"
+>
+
+    <div class="fluid-container grid gap-2 md:grid-cols-12">
+        <header  :class="{ 'opacity-0': !closed_nav }"
+            class="md:col-span-4
+            md:col-start-9 
+        ">
+            {{ partial:typography/h2 
+                content="Work" 
+                hlink="/work"
+                hclass="relative z-20 md:z-10"
+                class="w-full
+                    pl-[50%] md:pl-0
+                    text-left
+                    mt-[15px] md:mt-[10px]" 
+            }}
+        </header>
+    </div>
+
+    <section id="" 
+        class="fluid-container 
+            border-black border-t 
+            grid 
+            gap-2 md:grid-cols-12 
+    ">
+        {{ partial:typography/h1 
+            :content="title" 
+            class="mt-[10px] 
+                text-left 
+                md:col-span-6 
+                xl:col-span-8 
+                mb-4 md:mb-24
+            " 
+        }}
+
+        <div class="mt-[17px] 
+            md:col-span-4 
+            xl:col-span-2 
+        ">
+
+            <div >
+                {{ partial:typography/prose 
+                    as="div" 
+                    class="text-left mb-3"
+                }}
+                    {{ project_summary }}
+                {{ /partial:typography/prose }}
+            </div>
+        </div>
+
+        <div class="hidden md:block
+            mt-[17px] 
+            md:col-span-2 
+            xl:col-span-2
+            text-right
+        ">
+            <button 
+                @click="expanded = ! expanded"
+                class="relative block 
+                    ms-auto 
+                    text-black 
+                    hover:text-primary 
+                    stroke-black 
+                    hover:stroke-primary 
+                    group 
+                    w-[114px]
+                ">
+
+                <span x-show="!expanded" 
+                    x-transition.duration.600ms
+                    class="absolute -top-1 right-0 w-full text-right"
+                >
+                    <span class="inline 
+                        opacity-0 
+                        group-hover:opacity-100
+                        transition-opacity 
+                        text-xs mr-[5px]
+                    ">
+                        Read more
+                    </span>
+                    <svg 
+                        class="inline mt-[2px] stroke-black group-hover:stroke-primary transition-all"
+                        width="15" 
+                        height="15" 
+                        viewBox="0 0 15 15" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M0 1H14V15M0 13.6H9.8H11.2M0 7.3H11.2"  stroke-width="2"/>
+                    </svg>
+                </span>
+
+                <span x-show="expanded" 
+                    x-transition.duration.600ms
+                    class="absolute -top-1 right-0 w-full text-right"
+                >
+                    <span class="inline opacity-0 group-hover:opacity-100 transition-opacity text-xs mr-[3px]">
+                        Close
+                    </span>
+                    <svg 
+                        class="inline mt-[2px] stroke-black group-hover:stroke-primary transition-all"
+                        width="15" 
+                        height="15" 
+                        viewBox="0 0 12 12" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M11.0492 11.0486L1.00071 1.00002" stroke-width="2"/>
+                        <path d="M11.0501 1.00028L1.00236 11.048" stroke-width="2"/>
+                    </svg>
+                </span>
+                    
+            </button>
+        </div>
+    
+    </section>
+
+    <section id="" 
+        class="fluid-container 
+            border-black border-t 
+            grid gap-2 md:grid-cols-12 
+            mb-0 md:pt-[17px]
+        ">
+
+        <div class="mt-0 
+            text-left 
+            md:col-span-3
+            lg:col-span-6" 
+        >
+            <div class="md:hidden
+                text-left
+                relative 
+                mb-[20px]
+            ">
+                <button 
+                    @click="expanded = ! expanded"
+                    class="absolute
+                        z-10
+                        block 
+                        text-black 
+                        stroke-black 
+                        group
+                        w-full
+                        h-[30px]
+                    ">
+    
+                    <span x-show="!expanded" 
+                        x-transition.opacity.duration.600ms
+                        class="absolute 
+                            top-0 left-0 
+                            w-full 
+                            text-left"
+                    >  
+                        <svg 
+                            class="inline 
+                                -mt-[5px] 
+                                mr-[5px]
+                                stroke-black 
+                                transition-all"
+                            width="15" 
+                            height="15" 
+                            viewBox="0 0 15 15" 
+                            fill="none" 
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path d="M0 1H14V15M0 13.6H9.8H11.2M0 7.3H11.2"  stroke-width="2"/>
+                        </svg>
+                        <span class="inline-block mt-[10px]">
+                            Read more
+                        </span>
+                    </span>
+    
+                    <span x-show="expanded" 
+                        x-transition.opacity.duration.600ms
+                        class="absolute 
+                            top-0 left-0 
+                            w-full 
+                            text-left"
+                    >
+                        
+                        <svg 
+                            class="inline 
+                                -mt-[5px] 
+                                mr-[5px]
+                                stroke-black 
+                                transition-all"
+                            width="15" 
+                            height="15" 
+                            viewBox="0 0 12 12" 
+                            fill="none" 
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path d="M11.0492 11.0486L1.00071 1.00002" stroke-width="2"/>
+                            <path d="M11.0501 1.00028L1.00236 11.048" stroke-width="2"/>
+                        </svg>
+
+                        <span class="inline-block mt-[10px]">
+                            Close
+                        </span>
+                    </span>
+                        
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-0 
+                md:col-span-9 
+                lg:col-span-6
+                grid  md:grid-cols-6 
+                gap-4
+                expanse 
+                opacity-0
+            "
+            x-show="expanded" 
+            x-collapse.duration.600ms
+            x-bind:class="
+            expanded
+                ? 'expanded'
+                : ''
+            "
+        >
+            <div class="mt-0 
+                text-left 
+                md:col-span-2  
+                mb-4 md:mb-16">
+                <p class="md:hidden h-[20px]"></p>
+                {{ if sectors }}
+                    <p class="mt-0 mb-0 text-neutral">Sectors</p>
+                    <ul>
+                        {{ sectors }}
+                            <li class="leading-tight">
+                                <a class="text-primary hover:text-black" 
+                                    href="/work?sector={{ slug }}"
+                                >{{ title }}</a>
+                            </li>
+                        {{ /sectors }}
+                    </ul>
+                {{/if}}
+                
+                {{ if disciplines }}
+                    <p class="mt-5 mb-0 text-neutral">Disciplines</p>
+                    <ul>
+                        {{ disciplines }}
+                            <li class="leading-tight">
+                                <a class="text-primary hover:text-black" 
+                                    href="/work?discipline={{ slug }}"
+                                    >{{ title }}</a>
+                            </li>
+                        {{ /disciplines }}
+                    </ul>
+                {{/if}}
+
+            
+                {{ if years || project_year }}
+                    <p class="mt-5 mb-0 text-neutral">Year{{ years ? 's' : '' }}</p>
+                    <ul>
+                        {{ if project_year}}
+                            <li class="text-black leading-tight" >
+                                {{ project_year }}
+                            </li>
+                        {{/if}}
+                        {{ if years}}
+                        {{ years }}
+                            <li class="text-primary leading-tight" >
+                                {{ if year_link }}
+                                <a class="text-primary hover:text-black" 
+                                    href="{{ year_link }}"
+                                    >
+                                {{/if}}
+                                    {{ year }}
+                                {{ if year_link }}
+                                </a>
+                                {{/if}}
+                            </li>
+                        {{ /years }}
+                        {{/if}}
+                    </ul>
+                {{/if}}
+
+                {{ if additional_fields }}
+                    {{ additional_fields }}                   
+                        <p class="mt-5 mb-0 text-neutral">{{ field_name }}</p>
+                        <ul>
+                            {{ if field_values}}
+                            {{ field_values }}
+                                <li class="text-primary leading-tight" >
+                                    {{ if value_link }}
+                                    <a class="text-primary hover:text-black" 
+                                        href="{{ value_link }}"
+                                        target="{{ target_blank ? '_blank' : '_self' }}"    
+                                    >
+                                    {{/if}}
+                                        {{ value_name }}
+                                    {{ if value_link }}
+                                    </a>
+                                    {{/if}}
+                                </li>
+                            {{ /field_values }}
+                            {{/if}}
+                        </ul>
+                    {{ /additional_fields }}
+                {{/if}}
+            </div>
+
+            {{ partial:typography/prose 
+                as="div" 
+                class="mt-0 md:mb-16
+                    text-left
+                    md:col-span-10
+                    xl:col-span-2"
+            }}
+                {{ description_left_column }}
+            {{ /partial:typography/prose }}
+
+            {{ partial:typography/prose 
+                as="div" 
+                class="mt-0 md:mb-16
+                    text-left 
+                    md:col-span-12
+                    xl:col-span-2"
+            }}
+                {{ description_right_column }}
+            {{ /partial:typography/prose }}
+        </div>
+        
+    </section>
+
+    {{## 
+        https://photoswipe.com/getting-started/
+        https://photoswipe.com/vue-image-gallery/
+        https://photoswipe.com/caption/
+
+        https://wilkinsoneyre.com/projects/battersea-power-station
+    ##}}
+    <div class="pswp-gallery 
+        mt-[40px] md:-mt-[8px]
+    ">
+ 
+        {{ page_builder scope="block" }}
+            {{ partial src="page_builder/{type}" }}
+        {{ /page_builder }}
+
+    </div>
+
+</main>
+<!-- /projects/show.antlers.html -->

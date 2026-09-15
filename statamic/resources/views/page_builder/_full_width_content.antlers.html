@@ -1,0 +1,33 @@
+{{#
+	@name Full width content
+	@desc A full-width content with the option of include lateral padding.
+    @set page.page_builder.full_width_content
+#}}
+
+<!-- /page_builder/_full_width_content.antlers.html -->
+
+
+
+{{ section_class =  'fluid-container' }}
+{{ if remove_padding}}
+    {{ section_class =  'w-full' }}
+{{ /if }}
+
+{{ if has_top_border }}
+    {{ section_class .=  ' border-black border-t' }}
+{{ /if }}
+
+{{# dump #}}
+
+{{# lateral_padding | dump #}}
+
+
+<section id="{{ anchor }}" 
+    class="{{section_class}}"
+>
+    {{ partial:typography/prose class="w-full" }}
+        {{ content }}
+    {{ /partial:typography/prose }}
+</section>
+
+<!-- End: /page_builder/_full_width_content.antlers.html -->

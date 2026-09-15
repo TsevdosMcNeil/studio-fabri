@@ -1,0 +1,78 @@
+/* Header */
+
+@layer components {
+  header .logo-black svg path,
+  header .logo-black svg rect,
+  header .logo-black svg polygon {
+    @apply fill-[#231f20];
+  }
+  header .logo-white svg path,
+  header .logo-white svg rect,
+  header .logo-white svg polygon {
+    @apply fill-white;
+  }
+
+.mainmenu li,
+.mainmenu .mainmenu-blurb,
+.mainmenu .navigation_logos,
+.mainmenu .navigation-bottom {
+opacity: 0;
+transform: translateY(20px);
+}
+.mainmenu.visible {
+@apply animate-menuin;
+}
+.mainmenu.invisible {
+@apply animate-menuout;
+}
+.mainmenu.visible li,
+.mainmenu.visible .mainmenu-blurb,
+.mainmenu.visible .navigation_logos,
+.mainmenu.visible .navigation-bottom {
+@apply animate-fadeandmovein;
+}
+.mainmenu.visible li:nth-child(2) {
+animation-delay: 0.3s;
+}
+.mainmenu.visible li:nth-child(3) {
+animation-delay: 0.6s;
+}
+.mainmenu.visible li:nth-child(4) {
+animation-delay: 0.9s;
+}
+.mainmenu.visible li:nth-child(5) {
+animation-delay: 1.2s;
+}
+.mainmenu.visible li:nth-child(6) {
+animation-delay: 1.5s;
+}
+.mainmenu.visible li:nth-child(7) {
+animation-delay: 1.8s;
+}
+.mainmenu.visible li:nth-child(8) {
+animation-delay: 2.1s;
+}
+
+.mainmenu.visible .mainmenu-blurb {
+animation-delay: 1.2s;
+}
+.mainmenu.visible .navigation_logos {
+animation-delay: 1.4s;
+}
+.mainmenu.visible .navigation-bottom {
+animation-delay: 1.5s;
+}
+
+.mainmenu .mainmenu-blurb a {
+@apply text-secondary;
+}
+.mainmenu .mainmenu-blurb a:hover {
+@apply text-white;
+}
+.mainmenu .navigation_logos img {
+max-height: 10vh;
+@media (min-width: 768px) {
+    max-height: 10vh;
+}
+}
+}

@@ -1,0 +1,24 @@
+{{#
+  @name Navigation Logos
+  @desc Display logos on the navigation.
+#}}
+
+<!-- /navigation/_logos.antlers.html -->
+
+{{ if navigation_logos:logos}}
+<div class="navigation_logos flex">
+  {{ navigation_logos:logos }}
+  <a class=""
+    href="{{ link_field }}"
+    rel="noopener"
+    target="_blank"
+  >
+    {{ partial:components/image
+      :image="image"
+    }}
+  </a>
+  {{ /navigation_logos:logos }}
+</div>
+{{ /if }}
+
+<!-- End: /navigation/_logos.antlers.html -->

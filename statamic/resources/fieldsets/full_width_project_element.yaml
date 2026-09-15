@@ -1,0 +1,43 @@
+title: 'Full width project cards'
+fields:
+  -
+    handle: random_order
+    field:
+      default: false
+      type: toggle
+      display: 'Random Order'
+      instructions: 'Enable to display the elements radomly'
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: sticky_element
+    field:
+      default: false
+      type: toggle
+      display: 'Sticky Element'
+      instructions: 'If enabled, the first element of the list will always be shown first.'
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if_any:
+        random_order: 'equals true'
+  -
+    handle: section_projects
+    field:
+      mode: default
+      create: false
+      collections:
+        - projects
+      type: entries
+      display: Projects
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

@@ -1,0 +1,23 @@
+{{#
+    @name Caption with Arrow
+    @desc   
+    @param select   Direction of the arrow.
+    @set page.caption_with_arrow.article.arrow
+    
+#}}
+
+<!-- /components/_caption_with_arrow.antlers.html -->
+
+<div class="hidden md:block 
+        text-xxs
+        xl:text-xs
+        2xl:text-sm
+    ">
+    {{ partial:components/arrow
+        :direction="direction" 
+        wrapper_class="caption_arrow" 
+        arrow_color="primary" 
+    }}
+    {{ caption }}
+</div>
+<!-- End: /components/_caption_with_arrow.antlers.html -->

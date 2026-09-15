@@ -1,0 +1,9 @@
+{{#
+    @name Default `scrset` definition
+    @desc The default definition for the `srcset` attribute which gets loaded in `statamic-peak-tools::components/_picture.antlers.html (/vendor/studio1902/statamic-peak-tools/resources/views/components/_picture.antlers.html)`. There are only two sizes, becasue with more sizes the server crashes due large amount of memory required to process the images.
+#}}
+
+{{ srcset = [
+    [ 'width' => 768, 'ratio' => '{ ratio ?? original_ratio }' ],
+    [ 'width' => 3000, 'ratio' => '{ ratio_large ?? ratio ?? original_ratio }' ],
+] }}

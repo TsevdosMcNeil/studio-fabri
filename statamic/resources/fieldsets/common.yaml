@@ -1,0 +1,218 @@
+title: 'Common reusable fields'
+fields:
+  -
+    handle: image
+    field:
+      mode: list
+      container: images
+      restrict: false
+      allow_uploads: true
+      max_files: 1
+      type: assets
+      localizable: true
+      listable: hidden
+      display: Image
+      instructions_position: above
+      visibility: visible
+      always_save: false
+      show_filename: true
+  -
+    handle: entry
+    field:
+      max_items: 1
+      mode: default
+      type: entries
+      localizable: true
+      listable: false
+      display: Entry
+  -
+    handle: text_rich
+    field:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - anchor
+      save_html: false
+      toolbar_mode: fixed
+      link_noopener: true
+      link_noreferrer: false
+      container: files
+      target_blank: false
+      reading_time: false
+      fullscreen: true
+      allow_source: true
+      type: bard
+      replicator_preview: false
+      localizable: true
+      listable: hidden
+      display: 'Text rich'
+      instructions_position: above
+      visibility: visible
+      always_save: false
+      previews: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      antlers: false
+      remove_empty_nodes: trim
+      collapse: false
+      smart_typography: true
+      inline: false
+      hide_display: false
+  -
+    handle: text_basic
+    field:
+      buttons:
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - anchor
+      save_html: false
+      toolbar_mode: fixed
+      link_noopener: true
+      link_noreferrer: false
+      container: files
+      target_blank: false
+      reading_time: false
+      fullscreen: true
+      allow_source: true
+      type: bard
+      replicator_preview: false
+      localizable: true
+      listable: hidden
+      display: 'Text basic'
+      instructions_position: above
+      visibility: visible
+      always_save: false
+      previews: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      antlers: false
+      remove_empty_nodes: trim
+      collapse: false
+      smart_typography: true
+      inline: false
+      hide_display: false
+  -
+    handle: text_plain
+    field:
+      type: textarea
+      localizable: true
+      listable: hidden
+      display: 'Text plain'
+      instructions_position: above
+      visibility: visible
+      antlers: false
+      hide_display: false
+  -
+    handle: size
+    field:
+      options:
+        md: Normal
+        lg: LG
+        xl: XL
+        full: Full
+      type: button_group
+      localizable: true
+      default: md
+      listable: hidden
+      display: Size
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: orientation
+    field:
+      options:
+        default: Default
+        portrait: Portrait
+        landscape: Landscape
+      default: default
+      type: button_group
+      display: Orientation
+      icon: button_group
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: vertical_alignment
+    field:
+      options:
+        top: Top
+        middle: Middle
+        bottom: Bottom
+      default: top
+      type: button_group
+      display: 'Vertical Alignment'
+      icon: button_group
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: top_padding
+    field:
+      min: 0
+      max: 10
+      step: 1
+      type: range
+      display: 'Top padding'
+      icon: range
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      default: 0
+  -
+    handle: right_padding
+    field:
+      min: 0
+      max: 10
+      step: 1
+      type: range
+      display: 'Right Padding'
+      icon: range
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      default: 0
+  -
+    handle: bottom_padding
+    field:
+      min: 0
+      max: 10
+      step: 1
+      type: range
+      display: 'Bottom Padding'
+      icon: range
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      default: 0
+  -
+    handle: left_padding
+    field:
+      min: 0
+      max: 10
+      step: 1
+      type: range
+      display: 'Left padding'
+      icon: range
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      default: 0

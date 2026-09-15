@@ -1,0 +1,11 @@
+/* Videos */
+
+.aspect-video {
+    overflow: hidden;
+} 
+
+.video-wrapper figcaption {
+    padding-bottom: 1rem;
+}
+
+

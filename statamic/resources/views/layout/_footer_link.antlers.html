@@ -1,0 +1,20 @@
+{{#
+    @name Footer Link
+    @desc The alternative footer (link to a project or page)).
+#}}
+
+<!-- /layout/_footer_link.antlers.html -->
+{{ collection 
+    from="projects|pages" 
+    slug:is="{slug}" 
+    as="items"  
+}}
+{{ unless no_results }}
+    {{ items }}
+        {{ partial:layout/footer_collection }}
+    {{ /items }}
+{{ else }}
+    {{ partial:layout/footer }}
+{{ /unless }}
+{{ /collection }}
+<!-- End: /layout/_footer_link.antlers.html -->

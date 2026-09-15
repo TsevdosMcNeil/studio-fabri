@@ -1,0 +1,33 @@
+/* Card block */
+
+@layer utilities {
+    
+    .card_caption {
+        width: 100%;
+        min-width: 100%;
+    }  
+    @media (min-width: 768px) { 
+        .card_caption {
+            width: calc(
+                (   100vw 
+                    - calc(env(safe-area-inset-left, 0rem) + 4rem)  
+                    - calc(env(safe-area-inset-right, 0rem) + 4rem)
+                ) / 6
+            );
+            min-width: calc(
+                (   100vw 
+                    - calc(env(safe-area-inset-left, 0rem) + 4rem)  
+                    - calc(env(safe-area-inset-right, 0rem) + 4rem)
+                ) / 6
+            );
+        }
+    }
+    .card_caption_title  {
+        line-height: 1.15;
+    } 
+    iframe {
+        z-index: -1;
+    }
+
+
+}

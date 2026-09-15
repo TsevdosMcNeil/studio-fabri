@@ -1,0 +1,305 @@
+{{#
+    @name Video
+    @desc The video component. A sizeable YouTube or Vimeo video rendered in a responsive container with an optional caption.
+    @set page.article.video
+#}}
+
+<!-- /components/_video.antlers.html -->
+
+{{# We are using a new variable to save the original video_url value because this code is iterating over references to video_url (it's changing its value globally). #}}
+{{ current_video_url = video_url }} 
+
+{{ cookie_embeds =
+    (environment == 'local' && seo:trackers_local && seo:embeds) or
+    (environment == 'staging' && seo:trackers_staging && seo:embeds) or
+    (environment == 'production' && seo:trackers_production && seo:embeds)
+}}
+
+{{ url_union = '?' }}
+{{ if current_video_url | contains('?') }}
+    {{ url_union = '&' }}
+{{ /if }}
+
+
+{{ if current_video_url | is_vimeo }}
+    {{ current_video_url .= '{url_union}loop={video_loop}'}}
+    {{ if video_autoplay }}
+        {{ current_video_url .= '&autoplay={video_autoplay}&muted=1&autopause=0&hidecontrols=1&background=1'}}
+    {{ /if }}
+{{ /if }}
+
+{{ if !show_mute_button }} {{# We do not need to load the Youtube API, so we can manage the video options via URL #}}
+    {{ if current_video_url | is_youtube:id }}
+    {{  url_union = '?' }}
+        {{  if video_loop}}
+            {{ current_video_url .= '?loop={video_loop}&playlist={current_video_url | is_youtube:id}' }}
+            {{ url_union = '&' }}
+        {{ /if }}
+        {{ if video_autoplay }}
+            {{ current_video_url .= '{url_union}autoplay={video_autoplay}&mute=1&controls=0' }}
+        {{ /if }}
+    {{ /if }}
+{{ /if }}
+
+
+{{ video_sound = 'true' }}
+{{ if current_video_url | contains('mute') }}
+    {{ video_sound = 'false' }}
+{{ /if }}
+
+
+<div
+    {{ if cookie_embeds }}
+        x-data
+    {{ /if }}
+    class="video-wrapper
+        pb-0
+        {{ wrapper_class }}
+    "
+>
+    {{ calculated_style =  '' }}
+    {{ if ratio_width && ratio_height }}
+        {{ calculated_padding =  "padding-bottom: "+(ratio_height*100/ratio_width)+"%;"; }}
+        {{ calculated_aspect-ratio =  "aspect-ratio: "+ratio_width+" / "+ratio_height+";";  }}
+        {{ calculated_style =  calculated_padding + ' ' + calculated_aspect-ratio }}
+    {{ /if }}
+
+    <div class="relative aspect-video h-full"
+        style = " {{ calculated_style }} "
+    >
+        {{ if cookie_embeds }}
+            <div
+                x-show="!$store.cookieBanner.consent || !$store.cookieBanner.embeds"
+                class="absolute z-10 inset-0 p-6 flex justify-center items-center bg-neutral/10 text-neutral/80"
+            >
+                <a @click.prevent="$store.cookieBanner.setConsent(null)" href="#" class="p-1 -m-1 underline focus:outline-none focus-visible:ring-2 ring-primary">
+                    {{ trans:strings.cookie_embeds_disabled }}
+                </a>
+            </div>
+            <template x-if="$store.cookieBanner.consent && $store.cookieBanner.embeds">
+                {{ if current_video_url | is_youtube:id && show_mute_button }}
+                <div id="video_{{ current_video_url | get_video_id }}"></div>
+                {{ else }}
+                <iframe id="video_{{ current_video_url | get_video_id }}"
+                    src="{{ current_video_url | embed_url }}"
+                    class="absolute 
+                    top-1/2 left-1/2 
+                    translate-y-[-50%] translate-x-[-50%] 
+                    w-[10000px] h-full" 
+                    width="100%"  
+                    height="auto" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                ></iframe>
+                {{ /if }}
+            </template>
+        {{ else }}
+            {{ if current_video_url | is_youtube:id && show_mute_button }}
+            <div id="video_{{ current_video_url | get_video_id }}"></div>
+            {{ else }}
+            <iframe id="video_{{ current_video_url | get_video_id }}"
+                src="{{ current_video_url | embed_url }}"
+                class="absolute 
+                top-1/2 left-1/2 
+                translate-y-[-50%] translate-x-[-50%] 
+                w-[10000px] h-full" 
+                width="100%"  
+                height="auto" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+            ></iframe>
+            {{ /if }}
+        {{ /if }}
+        
+        {{ if show_mute_button }}
+        <span id="mute_{{ current_video_url | get_video_id }}"
+            x-data="{ video_muted: {{ video_sound }} }"
+            @click="video_muted = ! video_muted"
+            class="absolute bottom-[10px] right-[10px] z-20 cursor-pointer w-[36px] h-[32px]"
+        >
+            <svg version="1.1" 
+                x-show="video_muted" 
+                xmlns="http://www.w3.org/2000/svg" 
+                xmlns:xlink="http://www.w3.org/1999/xlink" 
+                x="0px" 
+                y="0px"
+                viewBox="0 0 18.6 16.1" 
+                style="enable-background:new 0 0 18.6 16.1;"
+                xml:space="preserve"
+                class="fill-white absolute w-[36px] h-auto"
+            >
+                <g>
+                    <path d="M11.3,0.1C11,0,10.6,0,10.3,0.1L5.4,3.5H0.9C0.4,3.5,0,3.9,0,4.5v7.1c0,0.5,0.4,0.9,0.9,0.9h4.5l4.9,3.4
+                        c0.2,0.2,0.5,0.2,0.6,0.2c0.1,0,0.3,0,0.4-0.1c0.3-0.2,0.5-0.5,0.5-0.8V0.9C11.8,0.6,11.6,0.3,11.3,0.1z M10,2.7v10.7l-3.7-2.6
+                        c-0.2-0.2-0.4-0.2-0.6-0.2H1.8V5.4h3.9c0.1,0,0.4,0,0.5-0.1L10,2.7z"/>
+                    <path d="M13.9,4.3L13.6,4l-1.3,1.3l0.2,0.2c0.7,0.7,1,1.6,1,2.5c0,0.9-0.4,1.8-1,2.5l-0.2,0.2l1.3,1.3l0.2-0.2
+                        c1-1,1.6-2.3,1.6-3.8C15.4,6.7,14.9,5.3,13.9,4.3z"/>
+                    <path d="M16.3,2.4l-0.2-0.2l-1.3,1.3L15,3.7c1.2,1.2,1.8,2.7,1.8,4.4c0,1.7-0.6,3.1-1.8,4.4l-0.2,0.2l1.3,1.3l0.2-0.2
+                        c1.5-1.5,2.3-3.4,2.3-5.6C18.6,5.9,17.8,3.9,16.3,2.4z"/>
+                </g>
+            </svg>
+
+            <svg version="1.1" 
+                x-show="!video_muted" 
+                xmlns="http://www.w3.org/2000/svg" 
+                xmlns:xlink="http://www.w3.org/1999/xlink" 
+                x="0px" 
+                y="0px"
+                viewBox="0 0 18.5 16.1" 
+                style="enable-background:new 0 0 18.5 16.1;" 
+                xml:space="preserve"
+                class="fill-white absolute w-[36px] h-auto"
+            >
+                <g>
+                    <path d="M11.3,0.1L11.3,0.1C11,0,10.7,0,10.3,0.1L5.4,3.5H0.9C0.4,3.5,0,3.9,0,4.5v7.1c0,0.5,0.4,0.9,0.9,0.9h4.5
+                        l4.9,3.4c0.2,0.2,0.5,0.2,0.6,0.2c0.1,0,0.3,0,0.4-0.1c0.3-0.2,0.5-0.5,0.5-0.8V0.9C11.8,0.6,11.6,0.3,11.3,0.1z M10,2.7v10.7
+                        l-3.7-2.6c-0.2-0.2-0.4-0.2-0.6-0.2H1.8V5.4h3.9c0.1,0,0.4,0,0.5-0.1L10,2.7z"/>
+                    <polygon points="18.5,6.2 17.2,4.9 15.4,6.7 13.6,4.9 12.3,6.2 14.1,8 12.3,9.8 13.6,11.1 15.4,9.3 17.2,11.1 
+                        18.5,9.8 16.7,8"/>
+                </g>
+            </svg>
+        </span>
+        {{ /if }}
+    </div>
+
+    {{ partial:typography/figcaption }}
+
+</div>
+
+{{ if show_mute_button }} {{# We need each platform API to create custom buttons #}}
+
+    {{ if current_video_url | is_vimeo }}
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+        const mute_{{ current_video_url | get_video_id }}  = document.querySelector('#mute_{{ current_video_url | get_video_id }}')
+        const video_{{ current_video_url | get_video_id }} = document.querySelector('#video_{{ current_video_url | get_video_id }}')
+        let player_{{ current_video_url | get_video_id }} = new Vimeo.Player(video_{{ current_video_url | get_video_id }});
+
+        mute_{{ current_video_url | get_video_id }}.addEventListener(
+            'click', 
+            function() { 
+                //console.log('mute clicked, typeof video.muted='+ typeof video_{{ current_video_url | get_video_id }}.muted);
+
+                if(typeof video_{{ current_video_url | get_video_id }}.muted == 'undefined') {
+                    //console.log('undefined, setting mute video to {{ video_sound }}');
+                    video_{{ current_video_url | get_video_id }}.muted = {{ video_sound }};
+                    player_{{ current_video_url | get_video_id }}.setMuted({{ video_sound }});
+                } else {
+                    video_{{ current_video_url | get_video_id }}.muted = !video_{{ current_video_url | get_video_id }}.muted;
+                    player_{{ current_video_url | get_video_id }}.setMuted(video_{{ current_video_url | get_video_id }}.muted);
+                }
+            }
+        );
+    </script>
+    {{ /if }}
+
+    {{ if current_video_url | is_youtube }}
+    <script>
+        // @see https://developers.google.com/youtube/iframe_api_reference
+
+        var youScript = 'youScript';  // Load Youtube remote scripts  and API functions only once.
+        if (!document.getElementById(youScript)) {
+
+            var tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            tag.id   = youScript;
+
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            // @see https://www.w3schools.com/js/js_scope.asp
+            var players = {};
+            var playerSettings = {};
+
+            /**
+            * This function creates the <iframe> (and YouTube players) of this page
+            * after the API code downloads.
+            */
+            function onYouTubeIframeAPIReady() {
+
+                //console.log('loading players');
+                for (const [key, value] of Object.entries(this.playerSettings)) {
+                    //console.log(`${key}: ${value}`);
+                    launchPlayer(key, value);
+                }
+
+                function launchPlayer(key, item) {
+                    this.players[key] = new YT.Player(
+                        item.iframeid, 
+                        {
+                            height: '100%',
+                            width: '100%',
+                            videoId: item.videoid,
+                            playerVars: item.playerVars,
+                            events: {
+                                //'onReady': onPlayerReady,
+                                //'onStateChange': onPlayerStateChange
+                            }
+                        }
+                    );
+                }
+            }
+
+
+            function onPlayerReady() {
+                console.log("hey Im ready");
+                //console.log(this.players);
+            }
+            
+            function onPlayerStateChange() {
+                console.log("my state changed");
+            }
+
+            this.muteVideo = function(evt) {
+                //console.log('mute clicked ');
+                //console.log(this.players[evt.currentTarget.key]);
+                
+                if (this.players[evt.currentTarget.key].isMuted()) {
+                    this.players[evt.currentTarget.key].unMute();
+                    //console.log('video: '+ evt.currentTarget.key +' muted= false');
+                } else {
+                    this.players[evt.currentTarget.key].mute();
+                    //console.log('video: '+ evt.currentTarget.key +' muted= true');
+                }
+            };
+        }
+
+        this.playerSettings.player_{{ current_video_url | get_video_id }} = {
+            'id':           'player_{{ current_video_url | get_video_id }}',
+            'iframeid':     'video_{{ current_video_url | get_video_id }}',
+            'videoid':      '{{ current_video_url | get_video_id }}',
+            'playerVars':   {
+                                'playsinline': 1,
+                                
+                                {{ if video_loop}}
+                                    'loop': 1,
+                                    'playlist': '{{ current_video_url | get_video_id }}',
+                                {{ /if }}
+                                {{ if video_autoplay }}
+                                    'mute': 1, 
+                                    'autoplay': 1, 
+                                    'controls': 0,
+                                {{ /if }}
+                            },
+        };
+
+        const mute_{{ current_video_url | get_video_id }}  = document.querySelector('#mute_{{ current_video_url | get_video_id }}')
+
+        // @see https://stackoverflow.com/questions/1338599/the-value-of-this-within-the-handler-using-addeventlistener
+        mute_{{ current_video_url | get_video_id }}.addEventListener(
+            'click', 
+            this.muteVideo.bind(this),
+        );
+
+        // @see https://stackoverflow.com/questions/256754/how-to-pass-arguments-to-addeventlistener-listener-function
+        mute_{{ current_video_url | get_video_id }}.key = 'player_{{ current_video_url | get_video_id }}';
+
+    </script>
+    {{ /if }}
+
+{{ /if }}
+
+<!-- End: /components/_video.antlers.html -->

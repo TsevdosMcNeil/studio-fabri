@@ -1,0 +1,198 @@
+{{#
+@name Projects item
+@desc A Projects item component.
+@param ratio_number Template image ratio
+@param featured_orientation Custom image orientation
+@param class Add optional CSS classes
+@param url Project URL
+@param image Project main image
+@param title Project title
+@param project_headline Project headline
+#}}
+
+<!-- /components/_projects_item.antlers.html -->
+{{ figure_class = 'mb-3 overflow-hidden' }}
+
+
+{{ if featured_orientation == 'landscape' }}
+  {{ ratio_number = '16/10' }}
+{{ elseif featured_orientation == 'portrait' }}
+  {{ ratio_number = '25/32' }}
+{{ /if }}
+
+
+{{ if featured_priority == 'high' }}
+  {{ num_columns_class = "prio-high md:col-span-12"}}
+  {{ ratio_number = '16/10' }}
+{{ elseif featured_priority == 'med' }}
+  {{ num_columns_class = "prio-med md:col-span-6"}}
+{{ elseif featured_priority == 'low' }}
+  {{ num_columns_class = "prio-low md:col-span-3"}}
+{{ /if }}
+
+{{# DEPRECATED FIRST POSITION
+ if first_position #}}
+	{{# num_columns_class = "prio-high md:col-span-12"#}}
+	{{# ratio_number = '16/10' #}}
+{{# /if #}}
+
+{{ if ratio_number }}
+  {{# ratio_number | dump #}}
+  {{ figure_class .= ' aspect-[' }}
+  {{ figure_class .= ratio_number }}
+  {{ figure_class .= ']' }}
+{{ /if }}
+{{# aspect-[16/10] aspect-[25/32] #}}
+
+
+{{ rollover_class = '' }}
+{{ if rollover_images }}
+	{{ rollover_class = 'group-hover:opacity-0 transition-all' }}
+{{ /if }}
+
+
+<article
+  x-data="{ shown: false }"
+  x-intersect.once="shown = true;"
+  :class="shown ? 'animate-appearsin' : ''"
+  class="{{ num_columns_class }} mb-3 md:mb-48 opacity-0">
+  <a
+    href="{{ url }}"
+    class="
+      group p-0 m-0 focus:outline-none relative block
+      after:content-['']  after:absolute after:inset-0 after:z-1
+      after:cursor-pointer after:w-full after:h-full"
+    {{ if featured_file_type=='image' && rollover_images }}
+      {{ num_roll_img={rollover_images | length} }}
+      x-data="{
+        currentImage: 0,
+        carouImages: []
+      }"
+      x-on:mouseenter="
+        moveImg();
+        function moveImg() {
+          //console.log('mouseenter');
+          for ( let intImage = 0; intImage < 5*{{ num_roll_img }}; intImage++ ) {
+            carouImages.push(
+              setTimeout(() => {
+                currentImage = (currentImage + 1) % {{ num_roll_img }};
+                //console.log(currentImage);
+              }, 1000 * intImage)
+            );
+          }
+        }"
+      x-on:mouseleave="
+        //console.log('mouseleave');
+        currentImage = 0;
+        carouImages.forEach(function (e) {
+          clearTimeout(e);
+        });"
+    {{ /if }}>
+    {{ if featured_file_type == 'image' && image }}
+      <figure class="relative
+        {{ figure_class }}
+        {{ rollover_class }}
+      ">
+        {{ if image }}
+          {{ if glide_active:glide_enabled }}
+            {{ partial:statamic-peak-tools::components/picture
+              :image="image"
+              sizes="100vw, (min-width: 768px) 90vw, (min-width: 1280px) 100vw "
+              :aspect_ratio="ratio_number"
+              lazy="true"
+              cover="true"
+              srcset_from="snippets/srcset_full_width"
+            }}
+          {{ else }}
+            {{ asset :url="image" }}
+              <img
+                class="w-full
+                  h-full
+                  absolute
+                  object-center
+                  object-cover"
+                src="{{ url }}"
+                alt="{{ alt | ensure_right('.') | entities }}"
+                width="{{ width }}"
+                height="{{ height }}"
+                loading="lazy" />
+            {{ /asset }}
+          {{ /if }}
+        {{ else }}
+          <!-- No image -->
+        {{ /if }}
+      </figure>
+    {{ /if }}
+    {{ if featured_file_type == 'image' && rollover_images }}
+      <div class="rollover_images
+        absolute top-0
+        opacity-0 group-hover:opacity-100
+        z-10
+        w-full
+        h-full
+        transition-opacity">
+        {{ current_image = 0 }}
+        {{ rollover_images }}
+          <figure
+            class="{{ figure_class }}
+              absolute
+              transition-all
+              w-full"
+            :class="currentImage == {{ current_image }} ? 'opacity-100' : 'opacity-0'">
+            {{ if glide_active:glide_enabled }}
+              {{ partial:statamic-peak-tools::components/picture
+                :image="url"
+                sizes="100vw, (min-width: 768px) 90vw, (min-width: 1280px) 100vw "
+                :aspect_ratio="ratio_number"
+                lazy="false"
+                cover="true"
+                srcset_from="snippets/srcset_full_width"
+              }}
+            {{ else }}
+              {{ asset :url="url" }}
+              <img
+                class="w-full
+                  h-full
+                  absolute
+                  object-center
+                  object-cover"
+                src="{{ url }}"
+                alt="{{ alt | ensure_right('.') | entities }}"
+                width="{{ width }}"
+                height="{{ height }}"
+                loading="lazy" />
+              {{ /asset }}
+            {{ /if }}
+          </figure>
+          {{ current_image = current_image + 1 }}
+          {{# delaytime = delaytime + 1000 #}}
+          {{ /rollover_images }}
+      </div>
+    {{ /if }}
+
+    {{ if featured_file_type == 'video' && featured_embed_video }}
+      {{ partial:components/video
+        :video_url="featured_embed_video"
+        video_autoplay="true"
+        video_loop="true"
+        wrapper_class="mb-3"
+      }}
+    {{ /if }}
+
+      {{ partial:typography/h3
+        :content="title"
+        class="inline-block
+          text-black group-hover:text-primary motion-safe:transition-colors
+          max-w-[calc(100%-20px)]"
+      }}{{ partial:icons/hover_arrow
+      class="-mt-[3px]
+        rotate-90
+        -translate-x-1 group-hover:translate-x-0"
+      }}
+      {{ partial:typography/p
+        :content="project_headline"
+        class="text-primary !-mt-[3px]"
+      }}
+  </a>
+</article>
+<!-- End: /components/_projects_item.antlers.html -->

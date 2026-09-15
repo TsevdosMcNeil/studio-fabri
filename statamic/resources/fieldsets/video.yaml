@@ -1,0 +1,85 @@
+title: Video
+fields:
+  -
+    handle: video_url
+    field:
+      placeholder: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      input_type: url
+      type: text
+      localizable: true
+      width: 50
+      listable: hidden
+      display: Video
+      instructions: 'YouTube or Vimeo URL.'
+      instructions_position: below
+  -
+    handle: ratio_width
+    field:
+      default: '16'
+      type: integer
+      display: 'Ratio: Width'
+      icon: integer
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: ratio_height
+    field:
+      default: '9'
+      type: integer
+      display: 'Ratio: Height'
+      icon: integer
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: video_autoplay
+    field:
+      default: false
+      type: toggle
+      display: Autoplay
+      icon: toggle
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: video_loop
+    field:
+      default: false
+      type: toggle
+      display: Loop
+      icon: toggle
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: show_mute_button
+    field:
+      default: false
+      type: toggle
+      display: 'Show mute/unmute button'
+      icon: toggle
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: caption
+    field:
+      input_type: text
+      type: text
+      localizable: true
+      listable: hidden
+      display: Caption

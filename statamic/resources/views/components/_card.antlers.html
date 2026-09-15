@@ -1,0 +1,163 @@
+{{#
+    @name Card
+    @desc A card component for news index. A sizeable image rendered in a figure tag with caption that can be placed next to the image or below it.
+    @param card_size             md | lg | xl
+    @param card_image            url of the image file
+    @param card_orientation      default | portrait | landscape
+    @param card_link             url of the link
+
+    @set page.article.new_card
+#}}
+
+<!-- /components/_card.antlers.html -->
+
+{{ card_class =  'card' }}
+{{ if card_caption_position == 'next' }}
+    {{ card_class .=  ' md:flex' }}
+{{ /if }}
+
+
+
+{{ if card_link }}
+<a href="{{ card_link }}"
+    class="group hover:text-primary"
+    {{ if target_blank }} 
+        target="_blank" 
+        rel="noopener" 
+    {{ /if }}
+>
+{{ /if }}
+<article  x-data="{ shown_new : false }" 
+    x-intersect.once="shown_new = true;"
+    class="opacity-0 {{ card_class }}"
+    :class="shown_new ? 'animate-appearsin' : ''" 
+>
+    <div class="mb-3 
+        {{card_caption_position == 'next' ? 'w-full md:mb-0' : 'md:mb-1 2xl:mb-4' }} 
+    ">
+        {{ if card_type == "video" }}
+            {{  partial:components/video 
+                :video_url="card_video_url" 
+                :ratio_width="card_video_rw"
+                :ratio_height="card_video_rh"
+                video_autoplay="true"
+                video_loop="true"
+                wrapper_class="mb-0"
+            }}
+        {{ elseif card_type == "image" }}
+            {{ figure_css = '' }}
+            {{ image_css = 'w-full
+                h-full
+                absolute
+                object-center
+                object-cover
+            ' }}
+            {{ if (card_orientation == 'portrait') }}
+                {{ figure_css = 'relative aspect-[25/32]' }}
+            {{ elseif (card_orientation == 'landscape') }}
+                {{ figure_css = 'relative aspect-[16/10]' }}
+            {{ else }}
+                {{ image_css = 'w-full' }}
+            {{/if}}
+            <figure        
+                class="
+                    not-prose
+                    {{ figure_css }}
+                    {{ switch(
+                        (card_size == 'md') => 'size-md',
+                        (card_size == 'lg') => 'size-lg',
+                        (card_size == 'xl') => 'size-xl',
+                        () => ''
+                    )}}
+            ">
+                {{ if card_image }}
+                    {{ if glide_active:glide_enabled }}
+                        {{
+                            partial:statamic-peak-tools::components/picture
+                            :image="card_image"
+                            aspect_ratio="{{ switch(
+                                (card_orientation == 'portrait') => '25/32 large:25/32',
+                                (card_orientation == 'landscape') => '16/10 large:16/10',
+                                () => ''
+                            )}}
+                            "
+                            class="w-full"
+                            cover="true"
+                            lazy="true"
+                            sizes="
+                                {{ switch(
+                                    (card_size == 'md') => '(min-width: 1280px) 640px, (min-width: 768px) 50vw, 90vw',
+                                    (card_size == 'lg') => '(min-width: 1280px) 960px, (min-width: 768px) 75vw, 90vw',
+                                    (card_size == 'xl') => '(min-width: 1280px) 1150px, 90vw',
+                                    () => '100vw'
+                                )}}
+                            "
+                        }}
+                    {{ else }}
+                        {{ asset :url="card_image" }}
+                            <img
+                                class="{{ image_css }}"
+                                src="{{ url }}"
+                                alt="{{ alt | ensure_right('.') | entities }}"
+                                width="{{ width }}"
+                                height="{{ height }}"
+                                loading="lazy"
+                            />
+                        {{ /asset }}    
+                    {{ /if }}
+                {{ else }}
+                    <!-- No image -->
+                {{ /if }}
+            </figure>
+        {{ /if }}
+    </div>
+
+    <div class="card_caption {{card_caption_position == 'next' ? 'md:pl-4' : 'md:pt-1' }}">
+        <div class="card_caption_title 
+            text-black group-hover:text-primary
+            md:text-xxs
+            xl:text-xs
+            2xl:text-sm
+            pb-[2px]
+            
+        ">
+            {{ partial:typography/h3 
+                :content="card_title" 
+                class="inline-block
+                max-w-[calc(100%-20px)]"
+                as="span"
+            }}{{ partial:icons/hover_arrow 
+                class="rotate-90 
+                    -translate-x-1 
+                    md:mt-[3px] 
+                    xl:mt-[0] 
+                    2xl:-mt-[3px]
+                    group-hover:translate-x-0 
+                    hidden md:inline-block
+                    md:w-[8px] md:h-[8px]
+                    xl:w-[10px] xl:h-[10px]
+                    2xl:w-[13px] 2xl:h-[13px]
+                " 
+            }}
+        </div>
+        <div class="card_caption_content 
+            not-prose 
+            text-primary 
+            group-hover:text-primary 
+            hover:text-primary
+            md:text-xxs
+            xl:text-xs
+            2xl:text-sm
+        ">
+            {{ partial src="components/text"
+                :text="card_caption"
+            }}
+        </div>
+    </div>
+</article>
+{{ if card_link }}
+</a>
+{{ /if }}
+
+
+<!-- End: /components/_card.antlers.html -->

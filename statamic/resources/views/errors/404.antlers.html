@@ -1,0 +1,49 @@
+{{#
+    @name Error: 404
+    @desc The 404 error template.
+#}}
+
+{{# Redirect if current_url is in the Redirects global. #}}
+{{ partial:statamic-peak-seo::errors/redirects }}
+
+<!-- /errors/404.antlers.html -->
+<main x-data="{ closed_nav: true }"
+    class="outer-grid" 
+    id="content"
+    @opened-nav.window="closed_nav=$event.detail.isclosed;"
+>
+    <div class="fluid-container 
+    grid gap-2 md:grid-cols-12
+    ">
+        <header :class="{ 'opacity-0': !closed_nav }"
+            class="md:col-span-4
+                md:col-start-9 
+        ">
+            {{ partial:typography/h1 
+                :content="alternative_title ?: title" 
+                :hlink="title_link"
+                hclass="relative z-20 md:z-1"
+                class="w-full
+                    pl-[50%] md:pl-0
+                    text-left
+                    mt-[15px] md:mt-[10px]"  
+            }}
+        </header>
+    </div>
+
+    <div x-data="{ shown_404: false }"
+        x-intersect.once="hown_404 = true;" 
+        class="
+            max-w-none
+            min-h-screen
+            pt-[100px] 
+            opacity-0 animate-appearsin
+            border-black border-t"
+        :class="shown_404 ? 'animate-appearsin' : ''"
+    >
+        {{ partial:statamic-peak-seo::errors/entry_content }}
+    </div>  
+
+
+</main>
+<!-- End: /errors/404.antlers.html -->

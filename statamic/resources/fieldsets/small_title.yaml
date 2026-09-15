@@ -1,0 +1,29 @@
+title: 'Small title'
+fields:
+  -
+    handle: title
+    field:
+      input_type: text
+      antlers: false
+      type: text
+      display: Title
+      icon: text
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: color
+    field:
+      swatches:
+        - black
+        - grey
+      allow_any: false
+      default: '#a7a7a7'
+      type: color
+      display: 'Title colour'
+      icon: color
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

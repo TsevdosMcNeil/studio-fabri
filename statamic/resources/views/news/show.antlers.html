@@ -1,0 +1,80 @@
+{{#
+    @name News show
+    @desc The News show template.
+#}}
+
+<!-- /news/show.antlers.html -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ permalink }}"
+        },
+        "headline": "{{ title }}",
+        "image": "{{ config:app:url }}{{ image }}",
+        "datePublished": "{{ date format="Y-m-d\TH:i:s" }}",
+        "author": {
+            "@type": "Organization",
+            "name": "{{ config:app:name }}",
+            "url": "{{ config:app:url }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ config:app:name }}"{{ if seo:organization_logo }},
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ config:app:url }}{{ glide:seo:organization_logo width='336' height='336' fit='contain' }}"
+            }{{ /if }}
+        }
+    }
+</script>
+<main x-data="{ closed_nav: true }"
+    id="content"
+    class="outer-grid" 
+    @opened-nav.window="closed_nav=$event.detail.isclosed;"
+>
+    <div class="fluid-container grid gap-2 md:grid-cols-12">
+        <header :class="{ 'opacity-0': !closed_nav }"
+            class="md:col-span-4
+            md:col-start-9 
+        ">
+            {{ partial:typography/h2 
+                content="News" 
+                hlink="/news"
+                class="w-full
+                    pl-[50%] md:pl-0
+                    text-left
+                    mt-[15px] md:mt-[10px]" 
+            }}
+        </header>
+    </div>
+
+    <section id="" 
+        class="fluid-container border-black border-t border-b grid gap-2 md:grid-cols-12 mb-[17px]">
+
+        {{ partial:typography/h1 
+            :content="title" 
+            class="mt-[10px] text-left md:col-span-8 mb-24" 
+        }}
+
+        <div class="mt-[17px] md:col-span-2">
+
+            {{ partial:typography/time 
+                :content="date" 
+                format='DD.MM.YY'
+                class="block text-left" 
+            }}
+        </div>
+
+    </section>
+
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+
+
+
+</main>
+<!-- /news/show.antlers.html -->

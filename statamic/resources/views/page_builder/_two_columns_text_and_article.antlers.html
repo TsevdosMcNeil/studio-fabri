@@ -1,0 +1,46 @@
+{{#
+	@name Two columns text and article
+	@desc The Two columns text and article page builder block.
+    @set page.page_builder.two_columns_text_and_article
+#}}
+
+<!-- /page_builder/_two_columns_text_and_article.antlers.html -->
+Two columns text and article changed
+<div class="grid grid-cols-3 gap-4">
+    <div class="col-span-2">66% column</div>
+    <div class="">33% column</div>
+  </div>
+
+<section class="grid gap-6 fluid-container md:grid-cols-12">
+    
+    {{ block:two_columns_text_and_article }}
+
+    
+
+        <div  class="md:col-span-9"  >
+        {{ total_results }}
+
+            {{ partial:typography/prose as="article" class="contents" }}
+                {{ taca_article }}
+                    {{ partial src="components/{type}" }}
+                {{ /taca_article }}
+            {{ /partial:typography/prose }}
+
+            {{# tact_text | dump #}}
+            {{# tact_title | dump #}}
+
+        </div>
+        <div class="md:col-span-3">
+
+            {{ tact_title ?= { partial:typography/h3 as="h2" :content="tact_title" class="mb-2 md:max-w-[1/2]" } }}
+
+            {{ partial:typography/prose class="md:columns-2 gap-6 md:[&>ul]:inline-block md:[&>ul]:!mt-0 md:[&>ul]:mb-5 md:[&>ul]:break-inside-avoid md:[&>ol]:inline-block md:[&>ol]:!mt-0 md:[&>ol]:mb-5 md:[&>ol]:break-inside-avoid md:[&>p]:!mt-0
+            " }}
+                {{ tact_text }}
+            {{ /partial:typography/prose }}
+
+
+        </div>
+    {{ /block:two_columns_text_and_article }}
+</section>
+<!-- End: /page_builder/_two_columns_text_and_article.antlers.html -->

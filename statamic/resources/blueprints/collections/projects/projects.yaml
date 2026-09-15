@@ -1,0 +1,511 @@
+title: Projects
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: General
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              input_type: text
+              localizable: true
+              listable: true
+              display: Title
+              validate:
+                - required
+          -
+            handle: project_headline
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Project Headline'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+          -
+            handle: project_summary
+            field:
+              collapse: false
+              always_show_set_button: true
+              previews: true
+              smart_typography: false
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+              save_html: false
+              inline: false
+              toolbar_mode: fixed
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              reading_time: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              antlers: false
+              remove_empty_nodes: false
+              display: Summary
+              type: bard
+              icon: bard
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+          -
+            handle: description_left_column
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - h4
+                - h5
+                - h6
+                - alignleft
+                - aligncenter
+                - alignright
+                - alignjustify
+              smart_typography: false
+              save_html: false
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: false
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Description Left Column'
+              icon: bard
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+              width: 50
+          -
+            handle: description_right_column
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - h4
+                - h5
+                - h6
+                - alignleft
+                - aligncenter
+                - alignright
+                - alignjustify
+              smart_typography: false
+              save_html: false
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: false
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Description Right Column'
+              icon: bard
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+              width: 50
+      -
+        display: 'Page builder'
+        fields:
+          -
+            import: page_builder
+  grid:
+    display: Grid
+    sections:
+      -
+        display: 'Project Thumbnail'
+        instructions: 'Select here the image(s) or video to display in the projects grid.'
+        fields:
+          -
+            handle: hide_in_projects_index
+            field:
+              default: false
+              type: toggle
+              display: 'Hide in projects index'
+              icon: toggle
+              instructions: 'Click here to prevent this project from being visible in the project grid.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: featured_file_type
+            field:
+              options:
+                image: Image(s)
+                video: Video
+              default: image
+              type: button_group
+              display: 'Featured File Type'
+              icon: button_group
+              width: 50
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              validate:
+                - required
+          -
+            handle: featured_priority
+            field:
+              options:
+                high: High
+                med: Medium
+                low: Low
+              default: low
+              type: button_group
+              display: Priority
+              icon: button_group
+              width: 50
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: image
+            field: common.image
+            config:
+              mode: grid
+              listable: true
+              width: 66
+              folder: projects
+              show_set_alt: true
+              if:
+                featured_file_type: 'equals image'
+          -
+            handle: featured_orientation
+            field: common.orientation
+            config:
+              options:
+                portrait: Portrait
+                landscape: Landscape
+              default: landscape
+              width: 33
+              if:
+                featured_file_type: 'equals image'
+                featured_priority: 'not high'
+          -
+            handle: rollover_images
+            field:
+              max_files: 10
+              mode: list
+              container: images
+              restrict: false
+              allow_uploads: true
+              show_filename: true
+              show_set_alt: true
+              type: assets
+              display: 'Rollover Images'
+              icon: assets
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              if:
+                featured_file_type: 'equals image'
+              always_save: true
+          -
+            handle: featured_embed_video
+            field: video.video_url
+            config:
+              width: 100
+              display: 'Embed Video'
+              if:
+                featured_file_type: 'equals video'
+      -
+        display: Homepage
+        fields:
+          -
+            handle: mobile_image
+            field: common.image
+            config:
+              mode: grid
+              instructions: 'Select a mobile-specific image for the projects displayed on the homepage. This will avoid small videos and cropped landscape images that are meant to be on the desktop version.'
+  seo:
+    display: SEO
+    sections:
+      -
+        display: Basic
+        instructions: 'Basic SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_basic'
+      -
+        display: Advanced
+        instructions: 'Advanced SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_advanced'
+      -
+        display: 'Open Graph'
+        instructions: 'Open Graph meta tags for social sharing.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_open_graph'
+      -
+        display: Sitemap
+        instructions: 'Sitemap configuration.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_sitemap'
+      -
+        display: 'JSON-ld Schema'
+        instructions: 'Custom JSON-ld schema objects.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_jsonld'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        display: Meta
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              generate: true
+              listable: hidden
+              display: Slug
+              validate:
+                - required
+          -
+            handle: date
+            field:
+              type: date
+              default: now
+              validate:
+                - required
+          -
+            handle: sectors
+            field:
+              type: terms
+              taxonomies:
+                - sectors
+              display: Sectors
+              mode: select
+          -
+            handle: disciplines
+            field:
+              type: terms
+              taxonomies:
+                - disciplines
+              display: Disciplines
+              mode: select
+          -
+            handle: project_year
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Project Year'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+          -
+            handle: years
+            field:
+              fields:
+                -
+                  handle: year
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Year
+                    icon: text
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    hide_display: false
+                -
+                  handle: year_link
+                  field:
+                    type: link
+                    display: 'Year Link'
+                    icon: link
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    hide_display: false
+              mode: table
+              reorderable: true
+              fullscreen: true
+              type: grid
+              display: 'Previous years'
+              icon: grid
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+              replicator_preview: true
+              add_row: 'Add Year'
+          -
+            handle: additional_fields
+            field:
+              fields:
+                -
+                  handle: field_name
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Field Name'
+                    icon: text
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: field_values
+                  field:
+                    fields:
+                      -
+                        handle: value_name
+                        field:
+                          input_type: text
+                          antlers: false
+                          type: text
+                          display: 'Value Name'
+                          icon: text
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: value_link
+                        field:
+                          type: link
+                          display: 'Value Link'
+                          icon: link
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: target_blank
+                        field:
+                          default: false
+                          type: toggle
+                          display: 'Open link in a new window'
+                          icon: toggle
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                    mode: stacked
+                    reorderable: true
+                    fullscreen: false
+                    type: grid
+                    display: 'Field Values'
+                    icon: grid
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    add_row: 'Add Value'
+              mode: table
+              add_row: 'Add Field'
+              reorderable: true
+              fullscreen: true
+              type: grid
+              display: 'Additional fields'
+              icon: grid
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: custom_next_project
+            field:
+              max_items: 1
+              mode: default
+              create: false
+              collections:
+                - projects
+              type: entries
+              display: 'Next Project'
+              icon: entries
+              instructions: 'If left blank, the next project will be assigned automatically.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - projects
+              max_items: 1
+              listable: false
+              localizable: true

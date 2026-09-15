@@ -1,0 +1,33 @@
+title: 'Expanded line'
+fields:
+  -
+    handle: line_colour
+    field:
+      swatches:
+        - black
+        - grey
+      allow_any: false
+      default: '#000000'
+      type: color
+      display: 'Line colour'
+      icon: color
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: increment_direction
+    field:
+      options:
+        left: Left
+        both: Both
+        right: Right
+      type: button_group
+      display: 'Increment direction'
+      icon: button_group
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

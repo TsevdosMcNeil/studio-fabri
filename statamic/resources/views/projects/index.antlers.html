@@ -1,0 +1,49 @@
+{{#
+    @name Projects index
+    @desc The Projects index template.
+    @see https://statamic.com/addons/jonassiewertsen/livewire
+#}}
+
+<!-- /projects/index.antlers.html -->
+{{ livewire:styles }}
+<main x-data="{ closed_nav: true }"
+    id="content"
+    class="outer-grid" 
+    @opened-nav.window="closed_nav=$event.detail.isclosed;"
+>
+    <div class="fluid-container grid gap-2 md:grid-cols-12">
+        <header :class="{ 'opacity-0': !closed_nav }"
+            class="md:col-span-4
+            md:col-start-9 
+        ">
+            {{ partial:typography/h1 
+                :content="title" 
+                class="w-full
+                pl-[50%] md:pl-0
+                text-left
+                mt-[15px] md:mt-[10px]" 
+            }}
+        </header>
+    </div>
+
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+
+
+
+        {{ section:index_content }}
+
+
+                {{ livewire:projects.show-projects  
+                    lazy="true" 
+                    :sortoptions="sort_options.value"
+                    :stickyelement="sticky_element.id"
+                }}
+            
+        {{ /section:index_content }}
+
+    
+</main>
+{{ livewire:scripts }}
+<!-- End: /projects/index.antlers.html -->

@@ -1,0 +1,34 @@
+{{#
+    @name News index
+    @desc The News index template.
+#}}
+
+<!-- /news/index.antlers.html -->
+<main x-data="{ closed_nav: true }"
+    id="content"
+    class="outer-grid" 
+    @opened-nav.window="closed_nav=$event.detail.isclosed;"
+>
+    <div class="fluid-container grid gap-2 md:grid-cols-12">
+        <header :class="{ 'opacity-0': !closed_nav }"
+            class="md:col-span-4
+            md:col-start-9 
+        ">
+            {{ partial:typography/h1 
+                :content="title"
+                class="w-full
+                    pl-[50%] md:pl-0
+                    text-left
+                    mt-[15px] md:mt-[10px]" 
+            }}
+        </header>
+    </div>
+
+    <!-- page_builder scope="block" -->
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+    <!-- End: page_builder scope="block" -->
+    
+</main>
+<!-- End: /news/index.antlers.html -->

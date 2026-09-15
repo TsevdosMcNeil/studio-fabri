@@ -1,0 +1,21 @@
+/* Expanded Line */
+
+@layer utilities {
+    
+    /* 
+    * Component: Expanded line 
+    */
+    #link_columns {
+        @media (min-width: 768px) { 
+            min-height: calc(100vh - 300px);
+            grid-template-rows: 200px 100px;
+        }
+    }
+    .link_block_title {
+        @media (min-width: 768px) { 
+            min-width: 35vw
+        }
+    }
+
+
+}

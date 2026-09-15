@@ -1,0 +1,224 @@
+{{#
+    @name Footer
+    @desc The footer content rendered on each project, page and subpages.
+#}}
+
+<!-- /layout/_footer_collection.antlers.html -->
+{{# collection.handle | dump #}}
+
+<div
+    x-data="initFooter()"
+    {{ if !live_preview }}
+        @click="go_to_collection()"
+        @touchmove="go_to_collection()"
+    {{ /if }}
+    x-intersect.threshold.90="footer_class = 'littleup'"
+    x-intersect:leave.margin.-30%="change_footer_class()"
+
+    class="footer-link
+        h-120
+        cursor-pointer
+    "
+    :class="footer_class"
+>
+    <div
+        class="footer-wrapper fixed pt-0 z-30 w-full"
+
+    >
+        <section
+            class="footer-project-next fluid-container
+                grid md:grid-cols-12 gap-2 cursor-pointer
+                bg-white"
+        >
+            {{ partial:typography/h1
+                as="h2"
+                content="{ trans:strings.projects_next }"
+                class="md:col-span-2 md:col-start-9 -ml-[7px] text-black"
+            }}
+        </section>
+        <footer
+            class="footer-project
+                w-full
+                py-4
+                mt-auto
+                h-240
+                overflow-hidden
+                bg-salmon
+                text-white"
+            :class="project_class"
+        >
+            <div class="fluid-container grid gap-2 md:grid-cols-12 ">
+                <header class="md:col-span-2 md:col-start-9 hidden">
+                    {{ partial:typography/h2
+                        content="{collection.handle == 'projects' ? 'Work' : 'Expertise'}"
+                        class="mt-[9px] text-left"
+                    }}
+                </header>
+            </div>
+            <article class="md:col-span-12
+                border-salmon
+                border-t
+            ">
+                {{ if collection.handle == 'projects' }}
+                    <div class="w-full
+                        pt-[17px] pb-0
+                        mt-auto
+                        fluid-container
+                        grid
+                        gap-2 md:grid-cols-12
+                    ">
+                        {{ partial:typography/h2
+                            :content="title"
+                            class="text-white
+                            -mt-[7px]
+                            text-left
+                            md:col-span-6
+                            xl:col-span-8
+                            md:mb-24"
+                        }}
+
+                        <div class="mt-0
+                            md:col-span-4
+                            xl:col-span-2
+                        ">
+
+                            <div >
+                                {{ partial:typography/prose
+                                    as="div"
+                                    class="text-left mb-3 text-white"
+                                }}
+                                    {{ project_summary }}
+                                {{ /partial:typography/prose }}
+                            </div>
+                        </div>
+
+                        <div class="hidden md:block
+                            mt-0
+                            md:col-span-2
+                            text-right
+                        ">
+                            <button
+                                class="relative block
+                                    ms-auto
+                                    text-white
+                                    hover:text-secondary
+                                    group
+                                    w-[114px]
+                                ">
+
+                                <span class="absolute -top-1 right-0 w-full text-right"
+                                >
+                                    <span class="inline opacity-0 group-hover:opacity-100 transition-opacity text-xs mr-[5px]" >
+                                        Read more
+                                    </span>
+                                    <svg
+                                        class="inline mt-[2px] transition-all
+                                            stroke-white group-hover:stroke-secondary "
+                                        width="15"
+                                        height="15"
+                                        viewBox="0 0 15 15"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path d="M0 1H14V15M0 13.6H9.8H11.2M0 7.3H11.2"  stroke-width="2"/>
+                                    </svg>
+                                </span>
+
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="fluid-container border-white border-t grid gap-2 md:grid-cols-12 mb-2">
+                        <div class="md:hidden
+                            mt-0
+                            md:col-span-2
+                            text-right
+                        ">
+                            <button
+                                class="relative block
+                                    ms-auto
+                                    text-white
+                                    hover:text-primary
+                                    group
+                                    w-[114px]
+                                    h-[20px]
+                                ">
+
+                                <span class="absolute top-0 right-0 w-full text-right"
+                                >
+                                    <span class="inline opacity-0 group-hover:opacity-100 transition-opacity text-xs mr-[5px]" >
+                                        Read more
+                                    </span>
+                                    <svg
+                                        class="inline mt-[2px] stroke-white group-hover:stroke-primary transition-all"
+                                        width="15"
+                                        height="15"
+                                        viewBox="0 0 15 15"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path d="M0 1H14V15M0 13.6H9.8H11.2M0 7.3H11.2"  stroke-width="2"/>
+                                    </svg>
+                                </span>
+
+                            </button>
+                        </div>
+                    </div>
+                {{ /if}}
+
+                    {{ page_builder scope="block" }}
+                        {{ partial src="page_builder/{type}" }}
+                    {{ /page_builder }}
+            </article>
+
+        </footer>
+    </div>
+
+
+    <script>
+
+        function initFooter() {
+
+            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+            return {
+                d :             document.documentElement,
+                offset:         0,
+                height:         0,
+                bottom_reached: false,
+                onwheel_active: true,
+                footer_class:  'opacity-100',
+                project_class: '',
+                next_url:      '{{ url }}',
+
+                change_footer_class() {
+                    //console.log('change_footer_class')
+                    if(this.footer_class ==  'littleup') {
+                        this.footer_class = 'littledown'
+                    }
+                    //console.log('footer_class: ' + this.footer_class)
+                },
+                go_to_collection() {
+                    //console.log('go_to_collection');
+                    this.onwheel_active = false;
+                    this.project_class =  'active';
+                    setTimeout(() => {
+                        location = this.next_url
+                    }, 1000);
+                    window.onbeforeunload = function () {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'instant'
+                        });
+                        this.project_class =  '';
+                    }
+
+                }
+            };
+        }
+
+    </script>
+</div>
+
+<!-- End: /layout/_footer_collection.antlers.html -->

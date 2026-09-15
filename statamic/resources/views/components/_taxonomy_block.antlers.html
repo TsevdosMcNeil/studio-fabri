@@ -1,0 +1,196 @@
+{{#
+    @name Taxonomy block
+    @desc Border line that can reach the left and right limits of the window.
+    @param selected_taxonomy        taxonomy
+    @param default_left_content     Content to be displayed on the left side of the taxonomy block
+    @param default_right_content    Content to be displayed on the right side of the taxonomy block
+    @set page.article.taxonomy_block
+    
+#}}
+
+<!-- /components/_taxonomy_block.antlers.html -->
+<div x-data="initTaxonomies()"
+    class="grid gap-4 md:grid-cols-12 "
+>
+    <div 
+        class=" max-w-none md:hidden"
+    >
+        {{ collapse_int = 0  }}
+        {{ taxonomy:{ selected_taxonomy } }}
+            <h2 id="tax_m_{{ slug }}">
+                <span
+                    @click="toggleCollapsed({{ collapse_int}}); 
+                        $dispatch('change-bodycolour', {bdclass: mbclass });
+                    "
+                >{{ title }}</span>
+            </h2>
+            <div x-show="expanded[{{ collapse_int}}]"
+                x-collapse
+                x-bind:class="{'opened' : expanded[{{ collapse_int}}] }"
+                class="py-0"
+            >
+                <div id="left_m_{{ slug }}" class="pt-4">{{ left_content }}</div>
+                <div id="right_m_{{ slug }}" class="pb-4">{{ right_content }}</div>
+                <div id="media_m_{{ slug }}" class="pb-5">
+                    {{ if tax_image }}
+                        {{ if glide_active:glide_enabled }}
+                            {{ partial:statamic-peak-tools::components/picture
+                                :image="tax_image" 
+                                sizes="33vw" 
+                                aspect_ratio="16/9" 
+                                class="w-full"
+                                lazy="false" 
+                            }}
+                        {{ else }}
+                            {{ asset :url="tax_image" }}
+                                <img
+                                    class="w-full" 
+                                    src="{{ url }}"
+                                    alt="{{ alt | ensure_right('.') | entities }}"
+                                    width="{{ width }}"
+                                    height="{{ height }}"
+                                />
+                            {{ /asset }}    
+                        {{ /if }}
+                    {{ elseif tax_video }}
+                        {{  partial:components/video 
+                            :video_url="tax_video" 
+                            video_autoplay="true"
+                            video_loop="true"
+                        }}
+                    {{ /if }}
+                </div>
+            </div>
+
+            {{ collapse_int = collapse_int + 1  }}
+
+        {{ /taxonomy:{ selected_taxonomy } }}
+    </div>
+
+
+    <div 
+        class=" max-w-none 
+            hidden md:block 
+            md:col-span-6 
+            md:row-span-2
+        "
+    >
+        {{ taxonomy:{ selected_taxonomy } }}
+            <h2 id="tax_{{ slug }}">
+                <span
+                    class=" hover:text-white"
+                    :class="currentTax ? 'text-primary' :'text-black'"
+                    x-on:mouseover="currentTax = '{{ slug }}'; $dispatch('change-bodycolour', {bdclass: 'dark' }); "
+                    x-on:mouseout="currentTax = ''; $dispatch('change-bodycolour', {bdclass: 'bright' }); "
+                >{{ title }}</span>
+            </h2>
+        {{ /taxonomy:{ selected_taxonomy } }}
+    </div>
+
+    <div id="taxonomy_left"
+        class="max-w-none md:col-span-2 md:col-start-9"
+    >
+        <div id="default_left"
+            x-show="!currentTax"
+        >{{ default_left_content }}</div>
+        {{ taxonomy:{ selected_taxonomy } }}
+            <div id="left_{{ slug }}"
+                x-show="currentTax == '{{ slug }}'"
+                x-transition:enter.duration.300ms
+            >{{ left_content }}</div>
+        {{ /taxonomy:{ selected_taxonomy } }}
+    </div>
+
+    <div id="taxonomy_right"
+        class="max-w-none  md:col-span-2"
+    >
+        <div id="default_right"
+            x-show="!currentTax"
+        >{{ default_right_content }}</div>
+        {{ taxonomy:{ selected_taxonomy } }}
+            <div id="right_{{ slug }}"
+                x-show="currentTax == '{{ slug }}'"
+                x-transition:enter.duration.300ms
+            >
+                {{ right_content }}
+            </div>
+        {{ /taxonomy:{ selected_taxonomy } }}
+    </div>
+
+    <div id="taxonomy_image"
+        class="max-w-none md:col-span-4 md:col-start-9 mt-auto pb-6"
+    >
+        {{ taxonomy:{ selected_taxonomy } }}
+            <div id="media_{{ slug }}"
+                x-show="currentTax == '{{ slug }}'"
+                x-transition:enter.duration.300ms
+            >
+            {{ if tax_image }}
+                {{ if glide_active:glide_enabled }}
+                    {{ partial:statamic-peak-tools::components/picture
+                        :image="tax_image" 
+                        sizes="33vw" 
+                        aspect_ratio="16/9" 
+                        class="w-full"
+                        lazy="false" 
+                    }}
+                {{ else }}
+                    {{ asset :url="tax_image" }}
+                        <img
+                            class="w-full" 
+                            src="{{ url }}"
+                            alt="{{ alt | ensure_right('.') | entities }}"
+                            width="{{ width }}"
+                            height="{{ height }}"
+                        />
+                    {{ /asset }}    
+                {{ /if }}
+            {{ elseif tax_video }}
+                {{  partial:components/video 
+                    :video_url="tax_video" 
+                    video_autoplay="true"
+                    video_loop="true"
+                }}
+                
+            {{ /if }}
+            </div>
+        {{ /taxonomy:{ selected_taxonomy } }}
+    </div>
+
+    <div x-intersect="
+            collapseAccordion();
+            $dispatch('change-bodycolour', {bdclass: 'bright' });
+    "></div>
+
+</div>  
+
+
+<script>
+
+    function initTaxonomies() {
+
+        return {      
+            expanded:    [],
+            currentTax:  '',
+            mbclass: 'dark',
+
+            toggleCollapsed( expanded_int ) {
+                let prev = this.expanded[expanded_int];
+                this.collapseAccordion();
+                this.expanded[expanded_int] = !prev;
+                //console.log(prev);
+                this.mbclass = 'dark';
+                if(prev) { 
+                    this.mbclass = 'bright';
+                }
+            },
+            collapseAccordion() {
+                this.expanded.fill(false);
+            },
+
+        }
+    
+    }
+ 
+  </script>
+<!-- End: /components/_taxonomy_block.antlers.html -->

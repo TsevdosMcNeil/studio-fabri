@@ -1,0 +1,99 @@
+{{#
+@name Image
+@desc The image component. A sizeable image rendered in a figure tag with optional caption.
+@param size md | lg | xl
+@param image url of the file
+@param aspect_ratio Pass in an aspect ratio to crop the image in a certain way. `16/9` for example or specify a second
+ratio for larger screens: `1/1 large:1/2`.
+@set page.article.image
+#}}
+
+<!-- /components/_image.antlers.html -->
+
+<figure class="pb-4 md:pb-0
+    not-prose
+    {{ switch(
+        (size == 'md') => 'size-md',
+        (size == 'lg') => 'size-lg',
+        (size == 'xl') => 'size-xl',
+        () => ''
+    )}}
+">
+  {{ if image }}
+    {{ if is_entry && collection == 'projects' }}
+      <a href="{{ image.url }}"
+        data-pswp-width="{{ image.width }}"
+        data-pswp-height="{{ image.height }}"
+        target="_blank"
+        rel="noreferrer"
+        class="cursor-lightbox"
+      >
+    {{ elseif image_link }}
+      <a href="{{ image_link }}">
+    {{ /if }}
+
+    {{ if glide_active:glide_enabled }}
+      {{#
+      Partial image included in
+      vendor/studio1902/statamic-peak-tools/resources/views/components/_picture.antlers.html
+
+      We can select between two diferent files to load as partial (if required)
+      partial
+      src="{ size == 'full' ? 'components/picture': 'statamic-peak-tools::components/picture' }"
+      #}}
+
+      {{ partial:statamic-peak-tools::components/picture
+        :image="image"
+        aspect_ratio="{{ switch(
+          (orientation == 'portrait') => '25/32 large:25/32',
+          (orientation == 'landscape') => '16/10 large:16/10',
+          () => ''
+        )}}
+        "
+        class="w-full
+        {{ is_entry && collection == 'projects' ? 'transition ease-in-out duration-300' : '' }}
+        "
+        cover="false"
+        lazy="true"
+        sizes="
+          {{ switch(
+            (size == 'md') => '90vw, (min-width: 768px) 50vw, (min-width: 1280px) 640px',
+            (size == 'lg') => '90vw, (min-width: 768px) 75vw, (min-width: 1280px) 960px',
+            (size == 'xl') => '90vw, (min-width: 1280px) 1150px',
+          () => '100vw'
+        )}}
+        "
+        srcset_from="snippets/srcset_full_width"
+        quality="{ size == 'full' ? '100': '85' }"
+      }}
+
+      {{ else }}
+        {{ asset :url="image" }}
+          <img class="w-full
+              {{ is_entry && collection == 'projects' ? 'transition ease-in-out duration-300' : '' }}
+            "
+            src="{{ url }}"
+
+            alt="{{ alt | ensure_right('.') | entities }}"
+            width="{{ width }}"
+            height="{{ height }}"
+            {{ unless alt }} aria-hidden="true" {{ /unless }}
+            loading="lazy"
+          />
+        {{ /asset }}
+
+      {{ /if }}
+
+        {{ partial:typography/figcaption }}
+
+        {{ if ( is_entry
+        && collection == 'projects'
+        ) || image_link
+        }}
+        </a>
+        {{ /if }}
+    {{ else }}
+    <!-- No image -->
+    {{ /if }}
+</figure>
+<!-- End: /components/_image.antlers.html -->

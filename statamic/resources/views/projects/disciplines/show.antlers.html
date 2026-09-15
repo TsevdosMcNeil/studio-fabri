@@ -1,0 +1,65 @@
+{{#
+    @name Disciplines index
+    @desc A taxonomy (disciplines) index template.
+#}}
+
+
+<!-- /projects/disciplines/show.antlers.html -->
+<main id="content"
+    class="outer-grid" 
+>
+    <div class="fluid-container grid gap-2 md:grid-cols-12">
+        <header class="md:col-span-10">
+            {{ partial:typography/h1 
+                :content="title" 
+                class="mt-0 text-right" }}
+        </header>
+    </div>
+
+
+
+        <div  class="fluid-container self-start grid md:grid-cols-12 gap-4 border-black border-t pt-36">
+            {{ collection:projects 
+                taxonomy:disciplines="{{slug}}"
+                sort="date:desc" 
+                paginate="true" 
+                limit="12" 
+                as="items" 
+            }}
+                {{ unless no_results }}
+                    {{ items }}
+
+                        {{ item_class = "md:col-span-3"}}
+                        {{if index == 0}}
+                            {{ item_class = "md:col-span-12"}}
+                        {{elseif (index == 1 || index == 6) }}
+                            {{ item_class = "md:col-span-6"}}
+                        {{elseif index == 5}}
+                            {{ item_class = "md:col-span-9"}}
+                        {{/if}}
+
+                        {{ item_ratio = '3/2' }}
+                        {{if index == 0}}
+                            {{ item_ratio = '16/9' }} 
+                        {{elseif (index == 1 || index == 3 || index == 4) }}
+                            {{ item_ratio = '17/21' }} 
+                        {{/if}}
+
+                        {{ partial:components/projects_item 
+                            :class="item_class" 
+                            :ratio_number="item_ratio" 
+                        }}
+
+                    {{ /items }}
+                {{ else }}
+                    <div class="md:col-span-6">
+                        {{ trans:strings.no_results }}
+                    </div>
+                {{ /unless }}
+            {{ /collection:projects }}
+        </div>
+
+
+    
+</main>
+<!-- End: /projects/disciplines/show.antlers.html  -->

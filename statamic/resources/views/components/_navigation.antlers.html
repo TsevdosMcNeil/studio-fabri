@@ -1,0 +1,57 @@
+{{#
+    @name Navigation
+    @desc List of links.
+    @param links_list   
+    @set page.article.navigation
+    
+#}}
+
+<!-- /components/_navigation.antlers.html -->
+
+<nav class="w-full">
+    <ul class="w-full 
+        flex 
+        flex-wrap 
+        items-center 
+        justify-start 
+        mt-0 md:mt-auto
+        mb-auto
+    ">
+        {{ links_list }}
+
+            {{ link_class = "
+                grow 
+                md:grow-0 
+                md:w-auto
+                md:mr-[50px] 
+                pt-1 md:pt:0
+                group 
+                leading-none" 
+            }}
+            {{# w-1/4 w-1/2 w-full #}} 
+            {{ if mobile_length }}
+                {{ link_class .= ' w-'+mobile_length }} 
+            {{ else }}
+                {{ link_class .= ' w-1/2' }} 
+            {{ /if }}
+
+        <li class="{{ link_class }}">
+            <a 
+                href="{{ link_field }}" 
+                class="text-black hover:text-primary"
+            >
+                {{ partial:icons/hover_arrow 
+                    class="-mt-[3px]
+                        -ml-[20px]
+                        rotate-180
+                        -translate-y-1 group-hover:translate-y-0 
+                        hidden md:inline-block
+                    " 
+                }}
+                {{ title }}
+            </a>
+        </li>
+        {{ /links_list }}
+    </ul>
+</nav>  
+<!-- End: /components/_navigation.antlers.html -->

@@ -1,0 +1,21 @@
+{{#
+    @name Small title
+    @desc Coloured title that can be placed at the top of a paragrap.
+    @param title   Title to display
+    @param color   Title colour
+    @set page.article.small_title
+    
+#}}
+
+<!-- /components/_small_title.antlers.html -->
+{{ title_class = 'size-md ' }}
+{{ if color == 'black' }}
+    {{ title_class .= ' text-black' }}
+{{ else }}
+    {{ title_class .= '  text-primary' }}
+{{ /if }}
+
+<h5 class="{{ title_class }}" >
+    {{ title }}
+</h5>
+<!-- End: /components/_small_title.antlers.html -->

@@ -1,0 +1,246 @@
+title: 'Link columns'
+fields:
+  -
+    handle: default_left_content
+    field:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+        - h4
+        - h5
+        - h6
+        - small
+        - color
+      smart_typography: false
+      save_html: false
+      inline: false
+      toolbar_mode: fixed
+      reading_time: false
+      word_count: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      remove_empty_nodes: false
+      antlers: false
+      link_noopener: false
+      link_noreferrer: false
+      target_blank: false
+      always_show_set_button: false
+      collapse: false
+      previews: true
+      type: bard
+      display: 'Default left content'
+      icon: bard
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: default_right_content
+    field:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+        - h4
+        - h5
+        - h6
+        - small
+        - color
+      smart_typography: false
+      save_html: false
+      inline: false
+      toolbar_mode: fixed
+      reading_time: false
+      word_count: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+      remove_empty_nodes: false
+      antlers: false
+      link_noopener: false
+      link_noreferrer: false
+      target_blank: false
+      always_show_set_button: false
+      collapse: false
+      previews: true
+      type: bard
+      display: 'Default right content'
+      icon: bard
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: link_blocks
+    field:
+      collapse: false
+      previews: true
+      fullscreen: true
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          instructions: null
+          icon: null
+          sets:
+            new_link_block:
+              display: 'New Link Block'
+              instructions: null
+              icon: null
+              fields:
+                -
+                  handle: link_field
+                  field:
+                    type: link
+                    display: 'Link Field'
+                    icon: link
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    validate:
+                      - required
+                -
+                  handle: title
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Title
+                    icon: text
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: left_content
+                  field:
+                    buttons:
+                      - h2
+                      - h3
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - table
+                      - h4
+                      - h5
+                      - h6
+                      - small
+                      - color
+                    smart_typography: false
+                    save_html: false
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: 'Left Content'
+                    icon: bard
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: right_content
+                  field:
+                    buttons:
+                      - h2
+                      - h3
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - image
+                      - table
+                      - h4
+                      - h5
+                      - h6
+                      - small
+                      - color
+                    smart_typography: false
+                    save_html: false
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: 'Right Content'
+                    icon: bard
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: image
+                  field: common.image
+                  config:
+                    width: 50
+                -
+                  handle: video_url
+                  field: video.video_url
+      type: replicator
+      display: 'Link blocks'
+      icon: replicator
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false

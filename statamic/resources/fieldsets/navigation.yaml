@@ -1,0 +1,63 @@
+title: Navigation
+fields:
+  -
+    handle: mobile_length
+    field:
+      options:
+        1/4: 25%
+        1/2: 50%
+        full: 100%
+      taggable: false
+      push_tags: false
+      multiple: false
+      clearable: false
+      searchable: true
+      cast_booleans: false
+      default: 1/2
+      type: select
+      display: 'Mobile Length'
+      icon: select
+      instructions: 'Length of elements in mobile viewport'
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: links_list
+    field:
+      fields:
+        -
+          handle: title
+          field:
+            input_type: text
+            antlers: false
+            type: text
+            display: Title
+            icon: text
+            listable: hidden
+            instructions_position: above
+            visibility: visible
+            hide_display: false
+            width: 50
+        -
+          handle: link_field
+          field:
+            type: link
+            display: 'Link Field'
+            icon: link
+            listable: hidden
+            instructions_position: above
+            visibility: visible
+            hide_display: false
+            width: 50
+      mode: table
+      reorderable: true
+      fullscreen: true
+      type: grid
+      display: 'List of links'
+      icon: grid
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false

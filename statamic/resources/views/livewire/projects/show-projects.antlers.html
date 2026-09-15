@@ -1,0 +1,314 @@
+<div
+    x-data="init()"
+>
+    {{# Filters #}}
+    <section 
+        id="" 
+        class="fluid-container 
+        border-black border-t 
+        grid gap-2 md:grid-cols-12 
+        mb-16 md:mb-36"
+    >
+        <div class="md:col-span-6 md:col-start-7 xl:col-span-4 xl:col-start-9" >
+            <div class="w-full flex">
+                <div class="w-1/2 md:w-1/3 leading-tight mt-[17px]">
+                    <button id="sectorButton"
+                        class="group"
+                        @click="expanded = ! expanded; 
+                            filter_clicked = true;
+                        "
+                        ><span x-show="!expanded"
+                            class="hidden md:inline-block"
+                        >{{ partial:icons/filter_arrow 
+                            class="-mt-[3px]
+                                -ml-[20px]
+                                -translate-y-1 group-hover:translate-y-0 
+                            "
+                        }}</span><span x-show="expanded"
+                            class="hidden md:inline-block"
+                        >{{ partial:icons/filter_arrow 
+                            class="-mt-[3px]
+                                -ml-[20px]
+                                -translate-y-1 group-hover:translate-y-0 rotate-180 
+                            "
+                        }}</span><span 
+                            class="text-black group-hover:text-primary"
+                        >Sector</span>
+                    </button> 
+                    
+                    <ul id="sector"
+                        x-show="expanded" 
+                        x-collapse.duration.750ms
+                        x-bind:class="
+                        expanded
+                            ? 'expanded'
+                            : ''
+                        "
+                        class="expanse opacity-0"
+                    >
+                        {{ taxonomy:sectors }}
+                            {{ partial:projects/filter-element
+                                :slug="slug" 
+                                :title="title" 
+                                tax="sector" 
+                            }}
+                        {{ /taxonomy:sectors }}
+                    </ul>
+                </div>
+                <div class="w-1/2 md:w-1/3 leading-tight mt-[17px]">
+                    <button id="disciplineButton" 
+                        class="group"
+                        @click="expanded = ! expanded; 
+                            filter_clicked = true;
+                        "><span x-show="!expanded"
+                        class="hidden md:inline-block"
+                    >{{ partial:icons/filter_arrow 
+                        class="-mt-[3px]
+                            -ml-[20px]
+                            -translate-y-1 group-hover:translate-y-0 
+                        "
+                    }}</span><span x-show="expanded"
+                        class="hidden md:inline-block"
+                    >{{ partial:icons/filter_arrow 
+                        class="-mt-[3px]
+                            -ml-[20px]
+                            -translate-y-1 group-hover:translate-y-0 rotate-180 
+                        "
+                    }}</span><span 
+                        class="text-black group-hover:text-primary"
+                    >Discipline</button>
+                  
+                    <ul id="discipline" 
+                        x-show="expanded" 
+                        x-collapse.duration.750ms
+                        x-bind:class="
+                        expanded
+                            ? 'expanded'
+                            : ''
+                        "
+                        class="expanse opacity-0"
+                    >
+                        {{ taxonomy:disciplines }}
+                            {{ partial:projects/filter-element
+                                :slug="slug" 
+                                :title="title" 
+                                tax="discipline" 
+                            }}
+                        {{ /taxonomy:disciplines }}
+                    </ul>
+                </div>
+                <div class="w-1/3 hidden md:flex flex-col content-end mt-[17px] leading-tight">
+                    <a 
+                        
+                        class="text-black hover:text-primary text-right cursor-pointer expanse opacity-0" 
+                        @click="expanded = false"
+                        x-bind:class="
+                        expanded
+                            ? 'expanded'
+                            : ''
+                        "
+                    >
+                        <span x-show="filter_clicked"  
+                            class="block"
+                        >Close</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    
+
+    <section 
+        id="index_content" 
+        class="fluid-container self-start grid md:grid-cols-12 gap-4 loaded"
+        wire:loading.class="loading"
+        wire:loading.class.remove="loaded"
+    >
+        {{ unless no_results }}
+            {{ projects }}
+
+                {{ num_columns_class = "md:col-span-3"}}
+                {{ first_position = false }}
+
+                {{if index == 0}}
+                    {{ num_columns_class = "md:col-span-12"}}
+                    {{ first_position = true }}
+                {{elseif
+                    index%8 == 0
+                    || index%8 == 2
+                    || index%8 == 3
+                    || index%8 == 4
+                    || index%8 == 7
+                }}
+                    {{ num_columns_class = "md:col-span-3"}}
+                {{elseif
+                    index%8 == 1
+                    || index%8 == 5
+                    || index%8 == 6
+                }}
+                    {{ num_columns_class = "md:col-span-6"}}
+                {{/if}}
+
+
+                {{# item_ratio = '3/2' #}}
+                {{ item_ratio = '16/10' }}
+                {{if index == 0}}
+                    {{ item_ratio = '16/10' }} 
+                {{elseif 
+                    index%8 == 0
+                    || index%8 == 2
+                    || index%8 == 5
+                    || index%8 == 6
+                    || index%8 == 7
+                }}
+                    {{# item_ratio = '3/2' #}}
+                    {{ item_ratio = '16/10' }}
+                {{elseif 
+                    index%8 == 1
+                    || index%8 == 3
+                    || index%8 == 4
+                }}
+                    {{# item_ratio = '17/21' #}}
+                    {{ item_ratio = '25/32' }} 
+                {{/if}}
+
+
+                {{ partial:components/projects_item 
+                    :num_columns_class="num_columns_class" 
+                    :ratio_number="item_ratio" 
+                    :first_position=first_position
+                }}
+
+            {{ /projects }}
+
+        {{ else }}
+            <div class="md:col-span-6">
+                {{ trans:strings.no_results }}
+            </div>
+        {{ /unless }}
+        {{# partial:statamic-peak-tools::components/pagination class="md:col-span-12" #}}
+    </section>
+    <script>
+
+        /**
+        * Wait for DOM to load, then remove opacity-0 class from expanse containers
+        */
+        document.addEventListener("DOMContentLoaded", function() {
+            var expanseContainers = document.getElementsByClassName('expanse');
+            for (var i = 0; i < expanseContainers.length; i++) {    
+                //console.log('expanseContainers['+i+'] opacity 1' );   
+                expanseContainers[i].classList.remove('opacity-0');
+            }
+        });
+
+        /**
+        * Simulate a click event.
+        * @public
+        * @param {Element} elem  the element to simulate a click on
+        */
+        var simulateClick = function (elem) {
+            // Create our event (with options)
+            var evt = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            // If cancelled, don't dispatch our event
+            var canceled = !elem.dispatchEvent(evt);
+        };
+
+        /**
+        * Select filter
+        * @public
+        * @param {string} button  the button to click
+        * @param {string} ele     the element to click
+        */
+        var selectFilter = function (button, ele) {
+            
+            setTimeout(function(){
+                console.log('Opening filter ' + button);
+                let filerButton = document.querySelector(button);
+                simulateClick(filerButton);
+            }, 300);
+
+            
+            setTimeout(function(){
+                console.log('Selecting filter ' + ele);
+                let filerLi = document.querySelector(ele);
+                simulateClick(filerLi);
+            }, 500);
+        };
+
+        
+        const url_sector     =  new URLSearchParams(location.search).get('sector');
+        const url_discipline =  new URLSearchParams(location.search).get('discipline');
+
+
+        if(url_sector !== null) { 
+            //console.log('url_sector_out:' + url_sector);
+            selectFilter('button#sectorButton', 'li#' + url_sector);
+        }
+
+        if(url_discipline !== null) { 
+            //console.log('url_discipline_out:' + url_discipline);
+            selectFilter('button#disciplineButton', 'li#' + url_discipline);
+        }
+
+        function init() {
+
+            return {   
+                filter_clicked:           false,
+                expanded:                 false,
+                selected_sector_slug:     {{ livewire:entangle property='selectedSectorSlug' }},
+                selected_discipline_slug: {{ livewire:entangle property='selectedDisciplineSlug' }},
+                project_class:            'md:col-span-3', 
+                project_aspect:           'aspect-[16/10]',
+                    
+                select_filter(
+                    slug, 
+                    filter,
+                    action
+                ) {
+                    //console.log('select_filter action:' + action + ' slug:' + slug + ' filter:' + filter);
+                    if( action == 'add') {
+                        if(filter === 'sector') {
+                            this.selected_sector_slug.push(slug);
+                        }
+                        if(filter === 'discipline') {
+                            this.selected_discipline_slug.push(slug);
+                        }
+
+                        document.getElementById(slug).classList.remove('text-primary');
+                        document.getElementById(slug).classList.add('text-black');
+                    }
+                    if( action == 'remove') {
+                        if(filter === 'sector') {
+                            this.selected_sector_slug = this.selected_sector_slug.filter(item => item !== slug);
+                        }
+                        if(filter === 'discipline') {
+                            this.selected_discipline_slug = this.selected_discipline_slug.filter(item => item !== slug);
+                        }
+
+                        document.getElementById(slug).classList.remove('text-black');
+                        document.getElementById(slug).classList.add('text-primary');
+                    }
+                },
+
+                clear_filters( family ) {
+                    if( family === 'sector' ) {
+                        this.selected_sector_slug = [];
+                    }
+                    if( family === 'discipline' ) {
+                        this.selected_discipline_slug = [];
+                    }
+                },
+                
+            };
+        }
+      
+      </script>
+
+</div>
+<!-- End: /livewire/projects/show-projects.antlers.html -->
