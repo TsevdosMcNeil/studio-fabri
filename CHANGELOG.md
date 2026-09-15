@@ -6,13 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [1.2.2] - 2026-09-15
+## [0.7.2] - 2026-09-15
 
 ### Added
 
  - Staging files
 
-## [1.2.1] - 2026-08-14
+## [0.7.1] - 2026-08-14
 
 ### Updated
 
@@ -21,20 +21,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  - Statamic enviromental variables 
    - All managed from Docker enviromental variables
 
-## [1.2.0] - 2026-08-14
+## [0.7.0] - 2026-08-14
 
 ### Added
 
  - Docker files
 
-## [1.1.0] - 2026-04-22
+## [0.6.0] - 2026-04-22
 
 ### Added
 
  - Build Files
 
 
-## [1.0.10] - 2026-04-22
+## [0.5.10] - 2026-04-22
 
 ### Updated
 
@@ -42,7 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - Added `STATAMIC_CUSTOM_FAVICON_URL="/favicons/favicon.svg"` to the `.env` file to set the favicon for the website. The favicon file is located in `public/favicons/favicon.svg`.
   - Updated `resources/views/layout.antlers.html` to get the path of the favicon (this is managed in `config/statamic/cp.php`)
 
-## [1.0.9] - 2026-04-10
+## [0.5.9] - 2026-04-10
 
 ### Updated
 
@@ -51,14 +51,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-## [1.0.8] - 2026-04-10
+## [0.5.8] - 2026-04-10
 
 ### Updated
 
 - Statamic Updated to latest v5 version (5.73.19)
 
 
-## [1.0.7] - 2026-04-10
+## [0.5.7] - 2026-04-10
 
 ### Added
 
@@ -68,21 +68,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-## [1.0.6] - 2026-03-20
+## [0.5.6] - 2026-03-20
 
 ### Added
 
 - [Server compromised](https://app.asana.com/1/355454733208534/project/1207332254977844/task/1213628914745390)
   -  Image Recovery Script 
 
-## [1.0.5] - 2025-06-30
+## [0.5.5] - 2025-06-30
 
 ### Updated
 
 - [Image Hover](https://app.asana.com/1/355454733208534/project/1207332254977844/task/1210571335510271) 
 
 
-## [1.0.4] - 2024-12-11
+## [0.5.4] - 2024-12-11
 
 ### Updated
 
@@ -90,7 +90,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - Remove Lenis effect for screen widths less than 1280px (xl)
 
 
-## [1.0.3] - 2024-11-04
+## [0.5.3] - 2024-11-04
 
 ### Fixed
 
@@ -98,24 +98,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - I added another service and this issue has happened again - it doesn't scroll the whole way . Can you please look into it so it doesn't cut off the last service.
 
 
-## [1.0.2] - 2024-11-04
+## [0.5.2] - 2024-11-04
 
 ### Fixed
 
 - [Projects - Related Projects](https://app.asana.com/0/1207332254977844/1208682218707538) Related project image updated
 
 
-## [1.0.1] - 2024-09-27
+## [0.5.1] - 2024-09-27
 
 ### Fixed
 
 - [Projects - Mobile](https://app.asana.com/0/inbox/355454733208538/1208401376925622/1208413294909935)
 
-## [1.0.0] - 2024-09-26
-
-### Updated
-
-- Go Live
 
 ## [0.4.2] - 2024-09-26
 
