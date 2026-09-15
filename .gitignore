@@ -12,8 +12,8 @@
 .env.backup
 .phpunit.result.cache
 .antlers.json
-package-lock.json
-composer.lock
+#package-lock.json
+#composer.lock
 
 # ignore node dependency directories
 node_modules/
