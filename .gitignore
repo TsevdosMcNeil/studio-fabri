@@ -157,24 +157,9 @@ statamic/resources/views/vendor/livewire/
 !.browserslist
 !README.md
 !CHANGELOG.md
-# -- sometimes these files won't be ignored becuse 
-# -- they are needed for DO app
-!package-lock.json
-!composer.lock
-
-# -------------------------
-# Documentation
-# ------------------------
-!/docs
-
-
-
-# track robots.txt
-!statamic/public/robots.txt
-
 
 # Migration file
-!*.sql.gz
+#!*.sql.gz
 
 
 # track favicon files, if they exist
@@ -187,6 +172,24 @@ statamic/resources/views/vendor/livewire/
 !mstile-*.png
 !safari-pinned-tab.svg
 !site.webmanifest
+
+# -------------------------
+# Documentation
+# ------------------------
+!/docs
+
+# -------------------------
+# Statamic
+# ------------------------
+# track robots.txt
+!statamic/public/robots.txt
+# -- sometimes these files won't be ignored becuse 
+# -- they are needed for DO app
+!statamic/package-lock.json
+!statamic/composer.lock
+#!statamic/content/assets/*.*
+#!statamic/content/navigation/*.*
+
 
 # -------------------------
 # Nginx
@@ -202,10 +205,3 @@ statamic/resources/views/vendor/livewire/
 !Caddyfile.statamic.example
 !/docker
 !env.statamic.example
-
-
-# -------------------------
-# Statamic 
-# -------------------------
-#!statamic/content/assets/*.*
-#!statamic/content/navigation/*.*
