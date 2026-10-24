@@ -1,5 +1,5 @@
 # docker/php/Dockerfile
-FROM php:8.3-fpm
+FROM php:8.3.36-fpm
 
 # System deps
 RUN apt-get update && apt-get install -y \

@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+---
+
+## [0.7.4] - 2026-10-24
+
+### Security
+- Prepared PHP-FPM base image update for the Dockerised Statamic application from `php:8.3-fpm` to `php:8.3.36-fpm` in `docker/php/Dockerfile`, to address the PHP security issues reported in October 2026 (CVE-2026-109618 and CVE-2026-109619), subject to advisory verification.
+- Kept the application on PHP 8.3 to minimise compatibility changes; no Docker Compose service changes required.
+
+### Deployment / verification
+- **Pending:** Rebuild image with `docker compose build --pull statamic` and recreate with `docker compose up -d --no-deps statamic`.
+- **Pending:** Confirm PHP version, required extensions, Composer platform requirements, Statamic Control Panel and frontend functionality.
+
+> Move this entry to a dated release section and replace pending items with actual results once deployed and tested.
+
+
 
 ## [0.7.3] - 2026-09-15
 
