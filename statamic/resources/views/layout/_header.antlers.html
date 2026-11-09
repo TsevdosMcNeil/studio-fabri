@@ -31,9 +31,10 @@
     </div>
 
     {{ if is_homepage }}
-    {{# White 60px bar behind the logo on the homepage (project titles now sit over each project instead). #}}
-    <div 
-        x-show="closed_nav"
+    {{# White 60px bar behind the logo on the homepage (project titles now sit over each project instead).
+        Hidden when the menu is open and when the footer is reached, so it doesn't cover the footer menu. #}}
+    <div
+        x-show="closed_nav && !footer_layout"
         class="home_header
             fixed
             inset-x-0
