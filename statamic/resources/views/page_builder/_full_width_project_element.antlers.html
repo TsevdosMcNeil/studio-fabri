@@ -5,10 +5,16 @@
 #}}
 
 <!-- /page_builder/_full_width_project_element.antlers.html -->
-<section class="relative 
+{{# 15px white gap between projects (Nov 2026 update) #}}
+<section class="home-projects
+    relative 
     w-full 
     min-h-[14rem] 
     py-0
+    flex
+    flex-col
+    gap-[15px]
+    bg-white
 ">
     {{ int_project = 0 }}
     {{ sticky_slug = null }}
@@ -28,7 +34,7 @@
                 >
                     <a 
                         href="{{ url }}" 
-                        class="p-0 m-0 focus:outline-none"
+                        class="relative block p-0 m-0 focus:outline-none"
                     >
                     {{ if mobile_image }}
                         <figure 
@@ -103,6 +109,7 @@
                             aspect_class="absolute top-0 left-0 w-full h-full"
                         }}
                     {{ /if }}
+                    {{ partial:components/project_overlay_title }}
                     </a>
                     <div id="{{ slug | replace('-', '')  }}"
                         {{ if int_project == 0 }}
@@ -189,7 +196,7 @@
             >
                 <a 
                     href="{{ url }}" 
-                    class="p-0 m-0 focus:outline-none"
+                    class="relative block p-0 m-0 focus:outline-none"
                 >
                 {{ if mobile_image }}
                     <figure 
@@ -264,6 +271,7 @@
                         aspect_class="absolute top-0 left-0 w-full h-full"
                     }}
                 {{ /if }}
+                {{ partial:components/project_overlay_title }}
                 </a>
                 <div id="{{ slug | replace('-', '')  }}"
                     {{ if int_project == 0 }}

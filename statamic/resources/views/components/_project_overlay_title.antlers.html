@@ -1,0 +1,17 @@
+{{#
+    @name Project overlay title
+    @desc Figma (Desktop - 9): 20% black layer over each homepage project, with the project title
+          centred on top in white Canela, 72px at 1920px wide, line-height 100%.
+    @param title Project title
+#}}
+
+<!-- /components/_project_overlay_title.antlers.html -->
+<div class="project-overlay pointer-events-none absolute inset-0 z-[5] bg-black/20" aria-hidden="true"></div>
+<h2 class="project-overlay-title
+    pointer-events-none
+    absolute inset-0 z-10
+    flex items-center justify-center
+    m-0 px-6 md:px-16
+    text-center text-white font-canela font-medium
+">{{ title }}</h2>
+<!-- End: /components/_project_overlay_title.antlers.html -->

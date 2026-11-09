@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.8.0] - 2026-11-09
+
+Go-live design updates requested by Danny (Figma: StudioFabbri_Website_V1, frames Desktop - 9 and Desktop - 10).
+
+### Added
+- Homepage preloader: large white SF logo centred over the first project with a 20% black layer; holds for 3s then fades out over 1s. Header and project titles appear as it fades. Plays once per browser session (`components/_preloader`).
+- Project titles centred over each full-width homepage project, in white Canela Medium (72px at 1920px wide, scaling down to 36px on mobile), with a 20% black layer over each project (`components/_project_overlay_title`).
+- Canela Medium webfont (`resources/fonts/canela`, woff2/woff) and `font-canela` Tailwind utility.
+
+### Changed
+- Header/menu bar height increased from 40px to 60px; logo scaled proportionally (106px → 159px wide). Logo and menu button vertically centred in the bar.
+- Header logo replaced with the new SF wordmark (`icons/_logo`).
+- 15px white gap between projects on the homepage (`page_builder/_full_width_project_element`).
+- Contact email changed from contact@studiofabbri.co.uk to enquiries@studiofabbri.co.uk across the site (Statamic content, updated on the server).
+
+### Removed
+- Project title text in the header bar on the homepage (replaced by the centred titles).
+
+### Build
+- Rebuilt site CSS (`public/build`). JS bundle unchanged.
+- Added a Tailwind `safelist` for classes used by `resources/views/vendor/*` views, which are gitignored, so fresh builds don't drop them.
+
+### Deployment / verification
+- **Pending:** Deploy to staging, then run `php please stache:clear`, `php artisan view:clear` and `php please static:clear`.
+- **Pending:** Verify on desktop and mobile: preloader, project titles and overlays (including video projects), 15px gaps, menu open/close, inner pages not covered by the 60px bar.
+- **Pending:** Confirm the email address change in content, and send a test enquiry through the contact form.
+
+
 ## [0.7.4] - 2026-10-24
 
 ### Security

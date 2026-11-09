@@ -5,7 +5,7 @@
     "src": "node_modules/photoswipe/dist/photoswipe.esm.js"
   },
   "resources/css/site.css": {
-    "file": "assets/site-69c9b9f8.css",
+    "file": "assets/site-677b123c.css",
     "isEntry": true,
     "src": "resources/css/site.css"
   },
@@ -56,6 +56,14 @@
   "resources/fonts/aktiv/AktivGroteskW01.woff2": {
     "file": "assets/AktivGroteskW01-9bf1fb48.woff2",
     "src": "resources/fonts/aktiv/AktivGroteskW01.woff2"
+  },
+  "resources/fonts/canela/Canela-Medium.woff": {
+    "file": "assets/Canela-Medium-3dde865d.woff",
+    "src": "resources/fonts/canela/Canela-Medium.woff"
+  },
+  "resources/fonts/canela/Canela-Medium.woff2": {
+    "file": "assets/Canela-Medium-58148ff8.woff2",
+    "src": "resources/fonts/canela/Canela-Medium.woff2"
   },
   "resources/fonts/rivieranights/RivieraNightsTrial-Bold.eot": {
     "file": "assets/RivieraNightsTrial-Bold-461720a4.eot",

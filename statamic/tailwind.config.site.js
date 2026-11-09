@@ -261,6 +261,10 @@ module.exports = {
         'CircularStd',
         ...defaultTheme.fontFamily.sans,
       ],
+      canela: [
+        'Canela',
+        ...defaultTheme.fontFamily.serif,
+      ],
       serif: [
         // Use a custom serif font for this site by changing 'Lavigne' to the
         // font name you want and uncommenting the following line.
@@ -274,7 +278,7 @@ module.exports = {
       // thin: 200,
       // light: 300,
       normal: 400,
-      // medium: 500,
+      medium: 500,
       // semibold: 600,
       bold: 700,
       // extrabold: 800,

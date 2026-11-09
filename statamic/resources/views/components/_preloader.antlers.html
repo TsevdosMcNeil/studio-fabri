@@ -1,0 +1,44 @@
+{{#
+    @name Preloader
+    @desc Homepage preloader, per Figma (Desktop - 10 -> Desktop - 9): large white SF logo centred over
+          the first project with a 20% black layer; holds 3000ms then dissolves over 1000ms (linear).
+          The header and project titles are hidden until it fades. Plays once per browser session;
+          to replay it, clear sessionStorage 'sf-preloaded'.
+#}}
+
+<!-- /components/_preloader.antlers.html -->
+<div id="preloader"
+    class="preloader fixed inset-0 z-[100] flex items-center justify-center bg-black/20"
+    aria-hidden="true"
+>
+    {{ partial:icons/logo
+        width="696"
+        height="96"
+        svg_class="preloader-logo block h-auto"
+        path_class="fill-white"
+    }}
+</div>
+<script>
+    (function () {
+        var root = document.documentElement;
+        var el = document.getElementById('preloader');
+        if (!el) return;
+        if (root.classList.contains('sf-preloaded')) { el.remove(); return; }
+        root.classList.add('sf-preloading');
+
+        var start = Date.now(), HOLD = 3000, MAX = 6000, FADE = 1000, done = false;
+        function hide() {
+            if (done) return;
+            done = true;
+            setTimeout(function () {
+                el.classList.add('is-hidden');
+                root.classList.remove('sf-preloading');
+                try { sessionStorage.setItem('sf-preloaded', '1'); } catch (e) {}
+                setTimeout(function () { el.remove(); }, FADE + 100);
+            }, Math.max(0, HOLD - (Date.now() - start)));
+        }
+        if (document.readyState === 'complete') { hide(); } else { window.addEventListener('load', hide); }
+        setTimeout(hide, MAX);
+    })();
+</script>
+<!-- End: /components/_preloader.antlers.html -->

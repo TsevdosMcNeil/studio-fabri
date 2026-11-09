@@ -10,6 +10,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        {{# Preloader: skip it if it already played this session (set before first paint to avoid a flash) #}}
+        <script>try{if(sessionStorage.getItem('sf-preloaded')){document.documentElement.classList.add('sf-preloaded')}}catch(e){}</script>
+        <noscript><style>#preloader{display:none}</style></noscript>
         <link rel="alternate" type="application/rss+xml" title="Projects Feed" href="{{ config:app:url }}/feed/projects"/>
         <link rel="alternate" type="application/rss+xml" title="News Feed" href="{{ config:app:url }}/feed/news"/>
         {{ vite src="resources/css/site.css|resources/js/site.js" }}
@@ -84,6 +87,7 @@
         :class="bodyClass"
         @change-bodycolour.window="bodyClass=$event.detail.bdclass;"
     >
+        {{ if is_homepage }}{{ partial:components/preloader }}{{ /if }}
         {{ partial:statamic-peak-tools::snippets/noscript }}
         {{ partial:statamic-peak-tools::navigation/skip_to_content }}
         {{ partial:statamic-peak-tools::components/toolbar }}

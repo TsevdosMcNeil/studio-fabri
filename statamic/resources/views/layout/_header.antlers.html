@@ -5,7 +5,7 @@
 
 <!-- /layout/_header.antlers.html -->
 <header 
-    class="w-full py-17px z-20 top-0 fixed 
+    class="w-full h-[60px] flex items-center z-20 top-0 fixed 
     {{ {is_homepage } ? '' : 'transition-transform' }}" 
     x-data="initHeadeScroll({{is_homepage }})"
     x-on:scroll.window="scroll()"
@@ -31,59 +31,19 @@
     </div>
 
     {{ if is_homepage }}
+    {{# White 60px bar behind the logo on the homepage (project titles now sit over each project instead). #}}
     <div 
-        x-show="prjctTtl && closed_nav"
-        class="w-full 
-            pt-20px 
-            pb-14px 
-            fixed 
-            z-10 
-            top-0 
-            fluid-container 
-            grid 
-            gap-2 
-            md:grid-cols-12 
-            home_header 
+        x-show="closed_nav"
+        class="home_header
+            fixed
+            inset-x-0
+            top-0
+            z-10
+            h-[60px]
             transition-colors
         "
-    >
-        <div class="md:col-span-2 md:col-start-9">
-            <h2 
-                id="projectTitle"
-                class="mt-0 
-                    ml-10 md:ml-0
-                    text-neutral 
-                    text-left 
-                    text-header 
-                    tracking-normal 
-                    animate-fadeandmovein
-                "
-                @change-headernav.window="
-                    animateProjectTitle(); 
-                    prjctTtlChngd = $event.detail.message; 
-                    prjctLnk = $event.detail.link; 
-                "
-            >
-                <a class="fixed 
-                        z-30 
-                        bg-red 
-                        group
-                    " 
-                    :href="prjctLnk"
-                >
-                    <span x-html="prjctTtl" 
-                        class="leading-nav
-                        text-black group-hover:text-primary transition-colors"
-                    ></span>&nbsp;{{ partial:icons/hover_arrow 
-                        class="-mt-[3px]
-                            rotate-90 
-                            -translate-x-1 group-hover:translate-x-0 
-                        " 
-                    }}
-                </a>&nbsp;
-            </h2>
-        </div>
-    </div>
+        aria-hidden="true"
+    ></div>
     {{ /if }}
 
 </header>
@@ -98,9 +58,6 @@
             bgmenu:              false,
             lastPos:             window.scrollY,
             scrollLimit:         100,
-            prjctTtl:            '{{ title }}',
-            prjctLnk:            '{{ url }}',
-            prjctTtlChngd:       '{{ title }}',
 
             scroll() {
                 this.showmenu = this.lastPos > window.scrollY || window.scrollY <= 0;
@@ -120,21 +77,6 @@
                 //console.log('this.prjctTtl '+this.prjctTtl)
                 //console.log('this.footer_layout '+this.footer_layout)
                 //console.log('window.scrollY '+window.scrollY)
-            },
-
-            animateProjectTitle() {
-                //console.log('animateTitle');
-                this.prjctTtl = '&nbsp;'
-                document.getElementById("projectTitle").classList.add('animate-fadeandmovein');
-                let self = this;
-                setTimeout(function() {
-                    self.prjctTtl = self.prjctTtlChngd
-                }, 200);
-                setTimeout(function() {
-                    document.getElementById("projectTitle").classList.remove('animate-fadeandmovein');
-                }, 700);
-                
-
             },
 
         }

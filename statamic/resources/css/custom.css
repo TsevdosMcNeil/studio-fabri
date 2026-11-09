@@ -41,6 +41,15 @@
 
 
     @font-face {
+        font-family: 'Canela';
+        src: url('/resources/fonts/canela/Canela-Medium.woff2') format('woff2'),
+            url('/resources/fonts/canela/Canela-Medium.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
         font-family: 'Riviera Nights Trial';
         src: url('/resources/fonts/rivieranights/RivieraNightsTrial-Bold.eot');
         src: url('/resources/fonts/rivieranights/RivieraNightsTrial-Bold.eot?#iefix') format('embedded-opentype'),
@@ -152,6 +161,44 @@
 
     .text-header {
         line-height: 0.7;
+    }
+
+
+    /* Preloader (homepage) */
+    .preloader {
+        transition: opacity 1s linear, visibility 1s linear;
+    }
+    .preloader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    .preloader-logo {
+        /* 696px on the 1920px Figma frame */
+        width: max(240px, 36.25vw);
+    }
+    .sf-preloaded .preloader {
+        display: none;
+    }
+    /* While the preloader shows: hide header and titles, and let the preloader's own
+       20% layer stand in for the first project's so it isn't doubled */
+    header,
+    .project-overlay-title,
+    .home-projects > div:first-of-type .project-overlay {
+        transition: opacity 1s linear;
+    }
+    .sf-preloading header,
+    .sf-preloading .project-overlay-title,
+    .sf-preloading .home-projects > div:first-of-type .project-overlay {
+        opacity: 0;
+    }
+
+    /* Homepage: project title centred over each full-width project.
+       Figma: 72px at 1920px wide (3.75vw), line-height 100%, centred */
+    .project-overlay-title {
+        font-size: clamp(36px, 3.75vw, 72px);
+        line-height: 1;
+        letter-spacing: 0;
     }
 
 
