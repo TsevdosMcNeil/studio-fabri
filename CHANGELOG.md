@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
-## [0.8.0] - 2026-11-09
+## [1.0.0] - 2026-11-09
 
 Go-live design updates requested by Danny (Figma: StudioFabbri_Website_V1, frames Desktop - 9 and Desktop - 10).
 
