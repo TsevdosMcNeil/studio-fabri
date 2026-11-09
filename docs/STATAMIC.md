@@ -627,7 +627,17 @@ This allowed us to recover most of the missing images.
 
 The process is documented here:
 
-[RECOVERY.md](https://github.com/pablorica/pinaco/blob/main/docs/RECOVERY.md)
+[RECOVERY.md](docs/RECOVERY.md)
+
+
+---
+
+## Search and Replace in Statamic
+
+Statamic has no database by default. Everything editable in the control panel (entries, pages, globals, navigation, form config) is stored as YAML/Markdown files under `statamic/content/`. These files *are* the database, so a text search-and-replace there is the standard way to change a value everywhere.
+
+[statamic-replace-email-in-content.md](docs/statamic-replace-email-in-content.md)
+
 
 
 ---
