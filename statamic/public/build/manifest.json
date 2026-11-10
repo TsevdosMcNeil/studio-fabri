@@ -1,11 +1,11 @@
 {
   "node_modules/photoswipe/dist/photoswipe.esm.js": {
-    "file": "assets/photoswipe.esm-060dc2da.js",
+    "file": "assets/photoswipe.esm-3ee328cd.js",
     "isDynamicEntry": true,
     "src": "node_modules/photoswipe/dist/photoswipe.esm.js"
   },
   "resources/css/site.css": {
-    "file": "assets/site-677b123c.css",
+    "file": "assets/site-088c6fef.css",
     "isEntry": true,
     "src": "resources/css/site.css"
   },
@@ -92,7 +92,7 @@
     "dynamicImports": [
       "node_modules/photoswipe/dist/photoswipe.esm.js"
     ],
-    "file": "assets/site-cfe34099.js",
+    "file": "assets/site-2780a7b3.js",
     "isEntry": true,
     "src": "resources/js/site.js"
   }

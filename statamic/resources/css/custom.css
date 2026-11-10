@@ -194,9 +194,10 @@
     }
 
     /* Homepage: project title centred over each full-width project.
-       Figma: 72px at 1920px wide (3.75vw), line-height 100%, centred */
+       Figma: 72px at 1920px wide; doubled at Danny's request (Nov 2026) to
+       144px at 1920px (7.5vw), min 72px on small screens. Line-height 100%, centred */
     .project-overlay-title {
-        font-size: clamp(36px, 3.75vw, 72px);
+        font-size: clamp(72px, 7.5vw, 144px);
         line-height: 1;
         letter-spacing: 0;
     }
