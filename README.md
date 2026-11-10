@@ -5,7 +5,7 @@ A Statamic website for **[studio-fabri](https://studio-fabri.co.uk/)** based in 
 It is containerized with **Docker** for consistent local development and easy deployment to any environment.
 
 
-[![version](https://img.shields.io/badge/version-1.0.2-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.0.1-green.svg)](https://semver.org)
 
 
 

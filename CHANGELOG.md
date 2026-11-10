@@ -7,13 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
-## [1.0.2] - 2026-11-10
+## [1.0.1] - 2026-11-10
 
 ### Changed
 - Homepage project titles made twice as big, as requested by Danny: 144px at 1920px wide (7.5vw), scaling down to 72px on mobile (previously 72px → 36px). Line height stays at 100%.
 
-
-## [1.0.1] - 2026-11-09
 
 ### Fixed
 - Footer menu partly hidden at the bottom of the homepage: the 60px homepage bar stayed visible over the footer (turning salmon in the footer's dark theme) and covered the top of "Work". The bar now hides when the footer is reached (`x-show="closed_nav && !footer_layout"` in `layout/_header.antlers.html`).
