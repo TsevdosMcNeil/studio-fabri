@@ -5,7 +5,7 @@ A Statamic website for **[studio-fabri](https://studio-fabri.co.uk/)** based in 
 It is containerized with **Docker** for consistent local development and easy deployment to any environment.
 
 
-[![version](https://img.shields.io/badge/version-1.0.1-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.0.2-green.svg)](https://semver.org)
 
 
 
@@ -238,6 +238,20 @@ php artisan cache:clear
 ```
 Reference to [Statamic Cache](https://statamic.dev/static-caching#by-force)
 
+
+### Compress large images (one-off)
+
+Resizes/recompresses JPGs over 1 MB in `statamic/public/images`, keeping filenames. Runs in a temporary Docker container. See [IMAGE-COMPRESSION.md](https://github.com/TsevdosMcNeil/studio-fabri/blob/main/docs/IMAGE-COMPRESSION.md).
+
+```bash
+# Local
+COMPOSE_FILES="-f docker-compose.yml" ./compress-images.sh            # dry run
+DRY_RUN=0 COMPOSE_FILES="-f docker-compose.yml" ./compress-images.sh  # apply
+
+# Remote (defaults to docker-compose.yml + docker-compose.remote.yml)
+./compress-images.sh
+DRY_RUN=0 ./compress-images.sh
+```
 
 ---
 

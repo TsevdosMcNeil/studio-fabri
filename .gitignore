@@ -179,6 +179,12 @@ statamic/resources/views/vendor/livewire/
 !/docs
 
 # -------------------------
+# Scripts
+# ------------------------
+!compress-images.sh
+
+
+# -------------------------
 # Statamic
 # ------------------------
 # track robots.txt

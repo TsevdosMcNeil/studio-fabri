@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [1.0.2] - 2026-11-19
+
+One-off compression of the large images uploaded to the site, as requested in [Image compression](https://app.asana.com/1/355454733208534/project/495342834052519/task/1218857316261003)  
+Details in `docs/IMAGE-COMPRESSION.md`.
+
+### Added
+- `compress-images.sh` (project root): one-off script that resizes and recompresses large JPGs in `statamic/public/images`. It runs ImageMagick in a temporary `alpine:3.20` container, so nothing needs installing on the host or in the PHP image.
+  - Only processes JPGs over 1 MB (skips `.meta`). The longest side is limited to 2560px (never enlarged), saved at quality 82 as progressive JPEG, with EXIF orientation applied and metadata removed.
+  - Overwrites files in place: filenames, URLs, owner (`www-data`) and permissions are unchanged. A file is only replaced if the new version is smaller.
+  - Copies originals to `~/studio-fabri-images-backup-<date>` (outside the web root) first.
+  - Dry run by default (`DRY_RUN=0` to apply). Then runs `php please assets:meta`, `glide:clear` (CP thumbnails only) and `static:clear` in the `statamic` service.
+- `docs/IMAGE-COMPRESSION.md`: the request, agreed scope, how to run the script locally and on the server, how to roll back, and post-run checks.
+
+### Notes
+- One-off fix: images uploaded in future are not compressed automatically. Run the script again if needed.
+- Glide is still not used on the front end. Images are served directly from `/images/...`.
+- Tested locally against a copy of the live images.
+
+### Deployment / verification
+- **Pending:** On the server, run `./compress-images.sh` (dry run), then `DRY_RUN=0 ./compress-images.sh`.
+- **Pending:** Check the homepage and project pages, spot-check the largest images, and confirm the CP shows the new dimensions/sizes.
+- **Pending:** Record the before/after size of `public/images` (765 MB before) and delete the backup once confirmed.
+
 ## [1.0.1] - 2026-11-10
 
 ### Changed
